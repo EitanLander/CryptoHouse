@@ -1,0 +1,266 @@
+body {
+  font-weight: 500;
+  font-family: Tahoma;
+  background-image: url(assets/images/background.jpg);
+  min-height: 500px;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body::-webkit-scrollbar {
+  width: 15px;
+  background: #163468;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(25deg, #168bff 55%, #01185e);
+  border-radius: 7px;
+}
+
+h3 {
+  background-color: rgba(2, 5, 9, 0.567);
+  color: white;
+  font-size: 45px;
+}
+
+#homeSection,
+#reportsSection,
+#aboutSection {
+  text-align: center;
+}
+
+
+
+.card {
+  text-align: center;
+  display: inline-block;
+  color: white;
+  border: solid 2px #0195ff20;
+  text-transform: uppercase;
+  font-family: "Droid Sans Mono,monospace";
+  background-color: rgba(255, 255, 255, 0.066);
+  backdrop-filter: blur(5px);
+
+
+}
+
+
+
+#coinMoreInfo {
+  padding: 5px;
+  min-height: 120px;
+}
+
+
+#bannerTitle {
+  position: absolute;
+  font-size: 120px;
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+}
+
+#reportsSection,
+#aboutSection {
+  display: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: absolute;
+  right: 15px;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.icon {
+  width: 25px;
+}
+
+.news-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: rgba(0, 0, 0, 0.524);
+  box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.3);
+}
+
+.news-container .title {
+  position: absolute;
+  background: #1500ff;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  color: white;
+  font-weight: bold;
+  z-index: 200;
+}
+
+.news-container ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  animation: scroll 25s infinite linear;
+}
+
+.news-container ul li {
+  white-space: nowrap;
+  padding: 10px 24px;
+  color: #ffffff;
+  position: relative;
+}
+
+.news-container ul li::after {
+  content: "";
+  width: 1px;
+  height: 100%;
+  background: #b8b8b8;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.news-container ul li:last-child::after {
+  display: none;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-1083px);
+  }
+}
+
+#aboutMe {
+  margin-top: 30px;
+  box-shadow: #0073ff 1px 1px 105px;
+  border-radius: 15px;
+  width: 1000px;
+  height: 700px;
+  text-align: center;
+  font-size: 25px;
+  display: inline-block;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Droid Sans Mono,monospace";
+  background-color: rgba(18, 17, 17, 0.859);
+}
+
+#myPhoto {
+  width: 250px;
+  position: absolute;
+  top: 290px;
+  right: 395px;
+  z-index: 200;
+}
+
+#photoShadow {
+  position: absolute;
+  border-radius: 95px;
+  right: 410px;
+  top: 770px;
+  width: 250px;
+  height: 150px;
+  box-shadow: #0073ff 1px 1px 105px;
+  background-color: #0088ff3b;
+}
+
+#coinName {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#slider {
+  display: inline-block;
+  margin-bottom: 35px;
+}
+
+
+.modal-content{
+      text-align: center;
+  display: inline-block;
+  color: white;
+  border: solid 2px #0195ff20;
+  text-transform: uppercase;
+  font-family: "Droid Sans Mono,monospace";
+  background-color: rgba(255, 255, 255, 0.095);
+  backdrop-filter: blur(10px);
+
+}
