@@ -23,6 +23,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
+
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+
     <title>Second Project - Bitcoin Site</title>
   </head>
   <body>
@@ -55,6 +59,7 @@
           <img src="assets/images/cryptologo.png" height="80" />
           
         </a>
+        <p>Selected Coins :<p id="coinsSelected"></p></p>
         <button
           class="navbar-toggler"
           type="button"
@@ -115,7 +120,7 @@
         <h5 class="modal-title">You selected too many coin.</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div>Add coins selected Here</div>
+      <div id="sixthCoin"></div>
       <div class="modal-body">
       </div>
     </div>
@@ -130,7 +135,8 @@
     <section id="reportsSection">
       <h3>Reports</h3>
 
-      
+      <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
       
     </section>
 

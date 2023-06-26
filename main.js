@@ -3,6 +3,8 @@
 "use strict";
 
 $(() => {
+
+    
   $("a.nav-link").click(function () {
     // Pill UI:
     $("a.nav-link").removeClass("active");
@@ -77,58 +79,80 @@ $(() => {
       `;
     }
     $("#coinsContainer").html(html);
+
     let selectedCoins = [];
     const maxCoins = 5;
-    let selectedCoinsCount = 0;
     checkSelectedCoins();
 
     function checkSelectedCoins() {
-      if (selectedCoinsCount === maxCoins) {
+      if (selectedCoins.length > maxCoins) {
         $("#maxCoinsModal").modal("show");
+        return;
       }
     }
 
     for (let i = 0; i < 100; i++) {
-      $(`#slider_${coins[i].id}`).on("change", function () {
-        const isChecked = $(this).prop("checked");
-        const coinId = $(this).attr("id").substring(7);
+      const checkbox = $(`#slider_${coins[i].id}`);
+
+      checkbox.on("change", function () {
+        const isChecked = checkbox.prop("checked");
+        const coinId = checkbox.attr("id").substring(7);
+        const coinsSelected = document.getElementById("coinsSelected");
 
         if (isChecked) {
-          if (selectedCoinsCount < maxCoins) {
+          if (selectedCoins.length < maxCoins) {
             const coin = coins.find((c) => c.id === coinId);
             if (!selectedCoins.some((c) => c.id === coinId)) {
               selectedCoins.push(coin);
-              selectedCoinsCount++;
             }
           } else {
+            const modalHeader = $("#sixthCoin");
+            const sixthCoin = `
+          <p> To add the "<b>${coinId}</b>" coin,<br> you must unselect other coin : <br></p>`;
+            modalHeader.empty();
+            modalHeader.append(sixthCoin);
+            checkbox.prop("checked", false);
             $("#maxCoinsModal").modal("show");
-            $(this).prop("checked", false);
           }
         } else {
           selectedCoins = selectedCoins.filter((c) => c.id !== coinId);
-          selectedCoinsCount--;
         }
+        coinsSelected.innerHTML = "";
+
+        // Add only the symbols of selected coins to coinsSelected
+        selectedCoins.forEach((coin) => {
+          const coinSymbol = coin.symbol;
+          const coinSymbolElement = document.createElement("span");
+          coinSymbolElement.innerText = coinSymbol + " ";
+          coinsSelected.appendChild(coinSymbolElement);
+        });
         console.log(selectedCoins);
         updateSelectedCoinsModal();
       });
     }
-function updateSelectedCoinsModal() {
-  const modalBody = $("#maxCoinsModal .modal-body");
-  modalBody.empty();
 
-  selectedCoins.forEach((coin, index) => {
-    modalBody.on("change", ".model-slider", function () {
-      const coinId = $(this).data("coin-id");
-      const isChecked = $(this).prop("checked");
+    function updateSelectedCoinsModal() {
+      const modalBody = $("#maxCoinsModal .modal-body");
+      modalBody.empty();
 
-      if (isChecked) {
-        console.log("Coin selected:", coinId);
-      } else {
-        console.log("Coin unselected:", coinId);
-      }
-    });
+      selectedCoins.forEach((coin) => {
+        const coinCheckbox = $(`#slider_${coin.id}`);
+        coinCheckbox.prop("checked", true);
 
-    const coinInfo = `
+        modalBody.on("change", ".model-slider", function () {
+          const coinId = $(this).data("coin-id");
+          const isChecked = $(this).prop("checked");
+
+          if (isChecked) {
+            console.log("Coin selected:", coinId);
+            coinCheckbox.prop("checked", true);
+          } else {
+            console.log("Coin unselected:", coinId);
+            coinCheckbox.prop("checked", false);
+          }
+        });
+
+        const coinInfo = `
       <div>
         <div id="coinName">
           <p>${coin.name} (${coin.symbol})</p>
@@ -141,43 +165,90 @@ function updateSelectedCoinsModal() {
         </div>
       </div>
     `;
-    modalBody.append(coinInfo);
-  });
+        modalBody.append(coinInfo);
+      });
 
-  
+      $(".unselect-slider").on("change", function () {
+        const isChecked = $(this).prop("checked");
+        const coinId = $(this).data("coin-id");
 
-  // Add the sixth coin name to the modal without adding it to the array
-  
-  if (selectedCoins.length < 6) {
-    const sixthCoinName = "Sixth Coin";
-    const coinInfo = `
-      <div>
-        <div id="coinName">
-          <p>${sixthCoinName}</p>
-        </div>
-     
-        </div>
-      </div>
-    `;
-    modalBody.append(coinInfo);
-  }
+        if (!isChecked) {
+          // Remove the unselected coin from the array
+          selectedCoins = selectedCoins.filter((coin) => coin.id !== coinId);
 
-  $(".unselect-slider").on("change", function () {
-    const isChecked = $(this).prop("checked");
-    const coinId = $(this).data("coin-id");
+          // Check if there is a sixth coin available
+          if (selectedCoins.length >= 6) {
+            // Replace the unselected coin with the sixth coin
+            selectedCoins.splice(5, 1, selectedCoins[5]);
+          }
 
-    if (!isChecked) {
-      selectedCoins = selectedCoins.filter((coin) => coin.id !== coinId);
-      $(`#slider_${coinId}`).prop("checked", false);
-      selectedCoinsCount--;
+          $(`#slider_${coinId}`).prop("checked", false);
+          updateSelectedCoinsModal(); // Call this function to update the modal content
+          console.log(selectedCoins);
+          $("#maxCoinsModal").modal("hide");
 
-      if (selectedCoinsCount < 6) {
-        $("#maxCoinsModal").modal("hide");
-      }
+          checkSelectedCoins();
+        }
+      });
     }
-  });
-}
-  }
+    
+    
+    // getCoinsData();
+
+    // async function getCoinsData() {
+    //   const symbols = selectedCoins.map((coin) => coin.symbol).join(",");
+    //   const url = `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${symbols}&tsyms=USD,ILS`;
+
+    //   try {
+    //     const response = await fetch(url);
+    //     const data = await response.json();
+
+    //     console.log("API response:", data); // Log the API response to check its structure
+
+    //     for (const coin of selectedCoins) {
+    //       const symbol = coin.symbol;
+    //       const coinData = data[symbol]; // Get the coin's data object from the API response
+
+    //       if (coinData) {
+    //         const usdPrice = coinData.USD; // Access the USD price property
+    //         const ilsPrice = coinData.ILS; // Access the ILS price property
+    //         const timestamp = new Date().getTime();
+
+    //         const dataPoint = {
+    //           x: timestamp,
+    //           y: usdPrice,
+    //         };
+
+    //         const dataSeriesIndex = dataSeries.findIndex(
+    //           (series) => series.name === symbol
+    //         );
+    //         if (dataSeriesIndex !== -1) {
+    //           dataSeries[dataSeriesIndex].dataPoints.push(dataPoint);
+    //         }
+    //     }
+    //     }
+
+    //     // Update the chart with the new data points
+    //     $("#chartContainer").CanvasJSChart().render();
+    //   } catch (error) {
+    //     console.log("Error fetching data:", error);
+    //   }
+
+    //   // Schedule the next update after a certain time interval
+    //   setTimeout(getCoinsData, 5000); // Update every 5 seconds (adjust the interval as needed)
+    // }
+
+
+
+
+
+
+
+
+  };
+
+
+  
 
   async function handleMoreInfo(coinId) {
     const localStorageKey = "coin_" + coinId;
@@ -187,7 +258,7 @@ function updateSelectedCoinsModal() {
       const data = JSON.parse(storedData);
       const currentTime = new Date().getTime();
 
-      if (currentTime - data.timestamp < 120000 /*2 Minutes*/ ) {
+      if (currentTime - data.timestamp < 120000 /*2 Minutes*/) {
         const { imageSource, usd, eur, ils } = data;
         const moreInfo = `
         <img src="${imageSource}"><br>
@@ -229,4 +300,9 @@ function updateSelectedCoinsModal() {
     const json = await response.json();
     return json;
   }
+
 });
+
+
+
+
