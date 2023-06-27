@@ -1,160 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="cryptonews.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="jquery-3.7.0.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
     <script defer src="main.js"></script>
+    <script src="snowcrypto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+    <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
 
     <title>Second Project - Bitcoin Site</title>
-  </head>
-  <body>
+</head>
 
-      <div id="websiteBanner" class="news-container">
+<body>
+
+
+
+    <div id="websiteBanner" class="news-container">
         <div class="title">
             Crypto News
         </div>
 
 
-        <ul id="coinsNewsContainer">    
-             <li><img class="icon" src="assets/images/bitcoin.png"> Bitcoin Sinks Below 25K <img class="icon" src="assets/images/bitcoin.png"> </li>
-             <li><img class="icon" src="assets/images/ethereum.png"> ETH price has touched YTD highs of $2130 <img class="icon" src="assets/images/ethereum.png"> </li>
-             <li style="color: red;"><img class="icon" src="assets/images/usdt.png"> Tether is down by -0.29% <img class="icon" src="assets/images/usdt.png"> </li>
+        <ul id="coinsNewsContainer">
+            <li><img class="icon" src="assets/images/bitcoin.png"> Bitcoin Sinks Below 25K <img class="icon"
+                    src="assets/images/bitcoin.png"> </li>
+            <li><img class="icon" src="assets/images/ethereum.png"> ETH price has touched YTD highs of $2130 <img
+                    class="icon" src="assets/images/ethereum.png"> </li>
+            <li style="color: red;"><img class="icon" src="assets/images/usdt.png"> Tether is down by -0.29% <img
+                    class="icon" src="assets/images/usdt.png"> </li>
 
-             
+
 
         </ul>
-       
-        
+
+
     </div>
     <br><br>
-
-    <nav
-      class="navbar navbar-expand-lg navbar-dark p-3 bg-primary"
-      id="headerNav"
-    >
-      <div class="container-fluid">
-        <a class="navbar-brand d-block d-lg-none">
-          <img src="assets/images/cryptologo.png" height="80" />
-          
-        </a>
-        <p>Selected Coins :<p id="coinsSelected"></p></p>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-              <a
-                id="homeLink"
-                class="nav-link active"
-                aria-current="page"
-                data-section="homeSection"
-                >Coins</a
-              >
-            </li>
-            <li class="nav-item">
-              <a id="reportsLink" class="nav-link" data-section="reportsSection"
-                >Live Reports</a
-              >
-            </li>
-            <li class="nav-item d-none d-lg-block">
-            </li>
-            <li class="nav-item">
-              <a id="aboutLink" class="nav-link" data-section="aboutSection"
-                >About</a
-              >
-            </li>
-            <li class="nav-item dropdown">
-              
-          <form class="d-flex">
-          <input
-            id="searchInput"
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button id="searchButton" class="btn btn-outline-info" type="button">
-            Search
-          </button>
-        </form>
-        </div>
-      </div>
-    </nav>
-    
-    <div id="maxCoinsModal" class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">You selected too many coin.</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div id="sixthCoin"></div>
-      <div class="modal-body">
-      </div>
+    <div class="container">
     </div>
-  </div>
-</div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark p-3 bg-primary" id="headerNav">
+        <div class="container-fluid">
+            <a class="navbar-brand d-block d-lg-none">
+                <img src="assets/images/cryptologo.png" height="80" />
+
+            </a>
+            <button id="cryptoRain" onclick="cryptoRain()">Crypto Rain</button>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a id="homeLink" class="nav-link active" aria-current="page"
+                            data-section="homeSection">Coins</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a id="reportsLink" class="nav-link" data-section="reportsSection">Live Reports</a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block">
+                    </li>
+                    <li class="nav-item">
+                        <a id="aboutLink" class="nav-link" data-section="aboutSection">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <p id="aboutLink" class="nav-link">Selected Coins :
+                        <p id="coinsSelected"></p>
+                        </p>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <form class="d-flex">
+                            <input id="searchInput" class="form-control me-2" type="search" placeholder="Search"
+                                aria-label="Search" />
+                            <button id="searchButton" class="btn btn-outline-info" type="button">
+                                Search
+                            </button>
+                        </form>
+            </div>
+        </div>
+    </nav>
+    <div id="maxCoinsModal" class="modal" data-bs-backdrop="static">
+        <div class="modal-dialog ">
+            <div class="modal-content animate__animated animate__swing">
+                <div class="modal-header">
+                    <h5 class="modal-title">You selected too many coin.</h5>
+                </div>
+                <div id="modalErrorMessage"></div>
+                <br>
+                <div id="sixthCoin"></div>
+
+                <div class="modal-body">
+                </div>
+                <button id="exitModalButton" type="button" data-bs-dismiss="modal">Stay With Same Coins</button>
+            </div>
+        </div>
+    </div>
 
     <section id="homeSection">
-      <h3>Coins</h3>
-      <div id="coinsContainer"></div>
+        <h3>Coins</h3>
+
+        <div id="coinsContainer"></div>
     </section>
 
     <section id="reportsSection">
-      <h3>Reports</h3>
+        <h3>Reports</h3>
 
-      <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <button onclick="createGraph()">Create Graph</button>
 
-      
+        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+
     </section>
 
     <section id="aboutSection">
-      <h3>About</h3>
-      <div id="aboutMe">Lorem ipsum dolor sit amet, <br>
-        consectetur adipisicing elit. Labore, tempore! Ea commodi sapiente culpa voluptatem delectus <br>
-        nemo, doloribus iusto soluta tempore doloremque dolor quam<br>
-         eaque maxime nihil laborum earum incidunt hic. A, excepturi<br>
-          ab culpa repudiandae, saepe quia<br> inventore rem
-           laboriosam, maxime obcaecati animi laborum.
-           Lorem ipsum dolor sit amet consectetur, adipisicing elit
-           <br>. Nam exercitationem quaerat quisquam omnis provident dolorum.
+        <h3>About</h3>
+        <div id="aboutMe">
 
+            <h1>About Me</h1>
+            <p>
+                Hello!<br> My name is Eitan Lander,<br> and I'm a passionate web developer with a focus on full stack
+                development. <br>
+                I am 25 years old and currently studying at <br>John Bryce College for Full Stack Web Development.
+            </p>
+            <br>
+            <p>
+                I have a strong foundation in HTML, CSS3, JavaScript, jQuery, AJAX,<br> REST API, CanvasJS, and
+                Bootstrap.<br><br> In addition
+                to my technical skills, <br>I am also a skilled designer with expertise in Photoshop,<br> and I have a
+                keen eye for creating
+                visually appealing and user-friendly websites.
+            </p>
+            <br>
+            <p>
+                This website is my second project.<br> It is called CryptoSelect and
+                has various features, including:
+            </p>
+            <br>
+            <ul>
+                <li>Coin of interest selection by toggle switch.</li>
+                <li>Expandable information per coin on the homepage.</li>
+                <li>Real-time cryptocurrency updates in graph format.</li>
+                <li>Search capabilities.</li>
+                <li>Utilization of 2 APIs for information retrieval.</li>
+            </ul>
+            <img id="myPhoto" src="/assets/images/me.png" alt="EitanLander">
+            <div id="photoShadow"></div>
+            <br>
 
-        <img id="myPhoto" src="/assets/images/me.png" alt="EitanLander">
-        <div id="photoShadow"></div>
-      </div>
+        </div>
     </section>
-  </body>
+</body>
+
 </html>

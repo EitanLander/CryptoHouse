@@ -1,48 +1,53 @@
 body {
-  font-weight: 500;
-  font-family: Tahoma;
-  background-image: url(assets/images/background.jpg);
-  min-height: 500px;
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+
+    font-weight: 500;
+    font-family: Tahoma;
+    background-image: url(assets/images/5166950.jpg);
+    min-height: 500px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 body::-webkit-scrollbar {
-  width: 15px;
-  background: #163468;
+    width: 15px;
+    background: #163468;
 }
 
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(25deg, #168bff 55%, #01185e);
-  border-radius: 7px;
+    background: linear-gradient(25deg, #168bff 55%, #01185e);
+    border-radius: 7px;
 }
 
 h3 {
-  background-color: rgba(2, 5, 9, 0.567);
-  color: white;
-  font-size: 45px;
+    background-color: rgba(2, 5, 9, 0.567);
+    color: white;
+    font-size: 45px;
+}
+
+#headerNav {
+  background-image: linear-gradient(to bottom, #00aaff, #0077ff);
 }
 
 #homeSection,
 #reportsSection,
 #aboutSection {
-  text-align: center;
+    text-align: center;
 }
 
 
 
 .card {
-  text-align: center;
-  display: inline-block;
-  color: white;
-  border: solid 2px #0195ff20;
-  text-transform: uppercase;
-  font-family: "Droid Sans Mono,monospace";
-  background-color: rgba(255, 255, 255, 0.066);
-  backdrop-filter: blur(5px);
+    text-align: center;
+    display: inline-block;
+    color: white;
+    border: solid 2px #0195ff20;
+    text-transform: uppercase;
+    font-family: "Droid Sans Mono,monospace";
+    background-color: rgba(255, 255, 255, 0.066);
+    backdrop-filter: blur(5px);
 
 
 }
@@ -50,217 +55,268 @@ h3 {
 
 
 #coinMoreInfo {
-  padding: 5px;
-  min-height: 120px;
+    padding: 5px;
+    min-height: 120px;
 }
 
 
 #bannerTitle {
-  position: absolute;
-  font-size: 120px;
-  text-align: center;
-  color: white;
+    position: absolute;
+    font-size: 120px;
+    text-align: center;
+    color: white;
 }
 
 h1 {
-  text-align: center;
+    text-align: center;
 }
 
 #reportsSection,
 #aboutSection {
-  display: none;
+    display: none;
 }
 
 a:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* The switch - the box around the slider */
 .switch {
-  position: absolute;
-  right: 15px;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+    position: absolute;
+    right: 15px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
 }
 
 .disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Hide default HTML checkbox */
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 /* The slider */
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
-input:checked + .slider {
-  background-color: #2196f3;
+input:checked+.slider {
+    background-color: #2196f3;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
-/* Rounded sliders */
+.selectedCoins {
+    font-size: 20px;
+    color: white;
+    text-transform: uppercase;
+
+}
+
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .icon {
-  width: 25px;
-}
-
-.news-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  font-family: "Roboto", sans-serif;
-  background-color: rgba(0, 0, 0, 0.524);
-  box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.3);
-}
-
-.news-container .title {
-  position: absolute;
-  background: #1500ff;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  color: white;
-  font-weight: bold;
-  z-index: 200;
-}
-
-.news-container ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  animation: scroll 25s infinite linear;
-}
-
-.news-container ul li {
-  white-space: nowrap;
-  padding: 10px 24px;
-  color: #ffffff;
-  position: relative;
-}
-
-.news-container ul li::after {
-  content: "";
-  width: 1px;
-  height: 100%;
-  background: #b8b8b8;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.news-container ul li:last-child::after {
-  display: none;
-}
-
-@keyframes scroll {
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(-1083px);
-  }
+    width: 25px;
 }
 
 #aboutMe {
-  margin-top: 30px;
-  box-shadow: #0073ff 1px 1px 105px;
-  border-radius: 15px;
-  width: 1000px;
-  height: 700px;
-  text-align: center;
-  font-size: 25px;
-  display: inline-block;
-  color: white;
-  text-transform: uppercase;
-  font-family: "Droid Sans Mono,monospace";
-  background-color: rgba(18, 17, 17, 0.859);
+    position: relative;
+    margin-top: 30px;
+    box-shadow: #0073ff 1px 1px 105px;
+    border-radius: 15px;
+    width: 1000px;
+    height: 720px;
+    text-align: center;
+    font-size: 19px;
+    display: inline-block;
+    color: white;
+    text-transform: uppercase;
+    background-color: rgba(18, 17, 17, 0.859);
 }
 
 #myPhoto {
-  width: 250px;
-  position: absolute;
-  top: 290px;
-  right: 395px;
-  z-index: 200;
+    width: 250px;
+    position: absolute;
+    bottom: 20px;
+    left: 850px;
+    z-index: 200;
 }
 
 #photoShadow {
-  position: absolute;
-  border-radius: 95px;
-  right: 410px;
-  top: 770px;
-  width: 250px;
-  height: 150px;
-  box-shadow: #0073ff 1px 1px 105px;
-  background-color: #0088ff3b;
+    position: absolute;
+    border-radius: 95px;
+    left: 855px;
+    top: 590px;
+    width: 200px;
+    height: 100px;
+    box-shadow: #0073ff 1px 1px 105px;
+    background-color: #0088ff53;
 }
 
 #coinName {
-  display: inline-block;
-  vertical-align: middle;
+    padding-top: 3px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 #slider {
-  display: inline-block;
-  margin-bottom: 35px;
+    display: inline-block;
+    margin-bottom: 35px;
 }
 
 
-.modal-content{
-      text-align: center;
-  display: inline-block;
-  color: white;
-  border: solid 2px #0195ff20;
-  text-transform: uppercase;
-  font-family: "Droid Sans Mono,monospace";
-  background-color: rgba(255, 255, 255, 0.095);
-  backdrop-filter: blur(10px);
+.modal-content {
+    text-align: center;
+    display: inline-block;
+    color: white;
+    border: solid 2px #0195ff30;
+    text-transform: uppercase;
+    font-family: "Droid Sans Mono,monospace";
+    background-color: rgba(0, 0, 0, 0.095);
+    backdrop-filter: blur(15px);
+    height: 450px;
+    width: 600px;
 
+}
+
+#exitModalButton {
+    font-size: 25px;
+    color: white;
+    border: solid 2px #0195ff;
+    border-radius: 15px;
+    width: 280px;
+    background-color: rgba(255, 255, 255, 0.033);
+    backdrop-filter: blur(10px);
+}
+
+#exitModalButton:hover {
+    background-color: #0195ff;
+    box-shadow: white 1px 1px 10px;
+}
+
+.modal-body {
+    display: flex;
+    gap: 15px;
+}
+#coinBoxModal{
+    width: 150px;
+    height: 170px;
+    border-radius: 15px;
+    background-image: linear-gradient(to bottom, #35bcff, #013672);
+}
+
+#coinBoxModal img{
+    width: 40px;
+}
+
+#modalCoin {
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    padding: auto;
+    display: inline-block;
+}
+
+#modalSwitch {
+    position: relative;
+    top: 40px;
+    left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: auto;
+    padding: auto;
+}
+
+#cryptoRain {
+    margin: auto;
+    font-size: 25px;
+    color: white;
+    border: solid 2px #00a2ff;
+    box-shadow: #fbfbfb 1px 1px 15px;
+    border-radius: 15px;
+    width: 150px;
+    background-color: rgba(255, 255, 255, 0.033);
+    backdrop-filter: blur(10px);
+}
+
+#cryptoRain:hover{
+
+
+        color: white;
+        border:solid 2px #ffffff;
+        box-shadow: #fbfbfb 1px 1px 35px;
+        background-color: rgba(255, 255, 255, 0.033);
+
+}
+
+
+.container {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.bitcoin-coin {
+    position: absolute;
+    top: -100px;
+    /* Initial position outside the container */
+    left: 50%;
+    /* Center horizontally */
+    transform: translateX(-50%);
+    animation: fallingCoin 3s ease-in-out infinite;
+    /* Animation properties */
+}
+
+@keyframes fallingCoin {
+    0% {
+        top: -100px;
+        /* Starting position outside the container */
+    }
+
+    100% {
+        top: calc(100% - 100px);
+        /* Ending position at the bottom of the container */
+    }
 }
