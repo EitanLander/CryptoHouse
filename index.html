@@ -27,6 +27,10 @@
 </head>
 
 <body>
+    <a id="scrollTop" href="#top"><img src="assets/images/arrowUp.png"></a>
+
+
+
 
 
 
@@ -34,6 +38,7 @@
         <div class="title">
             Crypto News
         </div>
+
 
 
         <ul id="coinsNewsContainer">
@@ -51,8 +56,10 @@
 
     </div>
     <br><br>
+
     <div class="container">
     </div>
+
 
     <nav class="navbar navbar-expand-lg navbar-dark p-3 bg-primary" id="headerNav">
         <div class="container-fluid">
@@ -101,6 +108,11 @@
             </div>
         </div>
     </nav>
+
+    <div class="loading">
+        <div><img id="cryptoLoading" src="assets/images/cryptologo.png"></div>
+    </div>
+
     <div id="maxCoinsModal" class="modal" data-bs-backdrop="static">
         <div class="modal-dialog ">
             <div class="modal-content animate__animated animate__swing">
@@ -127,7 +139,6 @@
     <section id="reportsSection">
         <h3>Reports</h3>
 
-        <button onclick="createGraph()">Create Graph</button>
 
         <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
