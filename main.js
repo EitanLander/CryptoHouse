@@ -19,7 +19,10 @@ $(() => {
     await handleMoreInfo(coinId);
   });
 
-  handleHome();
+  $("#reportsLink").click(async () => await handleHome());
+  $("#homeLink").click(() => {});
+  $("#aboutSection").click(() => {});
+
   async function handleHome() {
     const coins = await getJson("coins.json"); // Replace Before Public- https://api.coingecko.com/api/v3/coins/list
     displayCoins(coins);
@@ -224,116 +227,116 @@ $(() => {
     }
   });
 
-//   $("#reportsLink").on("click", function () {
-//     if (selectedCoins.length === 0) {
-//       $("#maincontainer").html(
-//         `<div class="noneselectedmsg"> <h2>Please select up to 5 coins to display on the graph!</h2> </div>`
-//       );
-//     } else
-//       var options = {
-//         exportEnabled: true,
-//         animationEnabled: true,
-//         title: {
-//           text: "Currency Price in USD",
-//         },
-//         axisX: {
-//           title: "Time",
-//         },
-//         axisY: {
-//           title: "Price in USD",
-//           titleFontColor: "#4F81BC",
-//           lineColor: "#4F81BC",
-//           labelFontColor: "#4F81BC",
-//           tickColor: "#4F81BC",
-//         },
-//         data: [
-//           {
-//             type: "spline",
-//             name: "ETH",
-//             showInLegend: true,
-//             xValueFormatString: "HH:mm:ss",
-//             yValueFormatString: "$#,##0.#",
-//             dataPoints: [],
-//           },
-//           {
-//             type: "spline",
-//             name: "BTC",
-//             showInLegend: true,
-//             xValueFormatString: "HH:mm:ss",
-//             yValueFormatString: "$#,##0.#",
-//             dataPoints: [],
-//           },
-//         ],
-//       };
+  //   $("#reportsLink").on("click", function () {
+  //     if (selectedCoins.length === 0) {
+  //       $("#maincontainer").html(
+  //         `<div class="noneselectedmsg"> <h2>Please select up to 5 coins to display on the graph!</h2> </div>`
+  //       );
+  //     } else
+  //       var options = {
+  //         exportEnabled: true,
+  //         animationEnabled: true,
+  //         title: {
+  //           text: "Currency Price in USD",
+  //         },
+  //         axisX: {
+  //           title: "Time",
+  //         },
+  //         axisY: {
+  //           title: "Price in USD",
+  //           titleFontColor: "#4F81BC",
+  //           lineColor: "#4F81BC",
+  //           labelFontColor: "#4F81BC",
+  //           tickColor: "#4F81BC",
+  //         },
+  //         data: [
+  //           {
+  //             type: "spline",
+  //             name: "ETH",
+  //             showInLegend: true,
+  //             xValueFormatString: "HH:mm:ss",
+  //             yValueFormatString: "$#,##0.#",
+  //             dataPoints: [],
+  //           },
+  //           {
+  //             type: "spline",
+  //             name: "BTC",
+  //             showInLegend: true,
+  //             xValueFormatString: "HH:mm:ss",
+  //             yValueFormatString: "$#,##0.#",
+  //             dataPoints: [],
+  //           },
+  //         ],
+  //       };
 
-//     var chart = new CanvasJS.Chart("chartContainer", options);
-//     chart.render();
+  //     var chart = new CanvasJS.Chart("chartContainer", options);
+  //     chart.render();
 
-//     // Create the chart object
-//     var chart = new CanvasJS.Chart("chartContainer", {
-//       title: {
-//         text: "Selected Coins Performance",
-//       },
-//       axisY: {
-//         title: "Price",
-//         includeZero: false,
-//         prefix: "$",
-//       },
-//       data: [],
-//     });
+  //     // Create the chart object
+  //     var chart = new CanvasJS.Chart("chartContainer", {
+  //       title: {
+  //         text: "Selected Coins Performance",
+  //       },
+  //       axisY: {
+  //         title: "Price",
+  //         includeZero: false,
+  //         prefix: "$",
+  //       },
+  //       data: [],
+  //     });
 
-//     // Update data every 2 seconds
-//     setInterval(function () {
-//       fetch(
-//         `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${selectedCoins
-//           .map(coin => coin.symbol)
-//           .join(",")}&tsyms=USD`
-//       )
-//         .then(function (response) {
-//           return response.json();
-//         })
-//         .then(function (data) {
-//           var currentDate = new Date();
+  //     // Update data every 2 seconds
+  //     setInterval(function () {
+  //       fetch(
+  //         `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${selectedCoins
+  //           .map(coin => coin.symbol)
+  //           .join(",")}&tsyms=USD`
+  //       )
+  //         .then(function (response) {
+  //           return response.json();
+  //         })
+  //         .then(function (data) {
+  //           var currentDate = new Date();
 
-//           // Iterate over selected coins
-//           selectedCoins.forEach(coin => {
-//             var coinPrice = data[coin.symbol.toUpperCase()].USD; // Coin price in USD
+  //           // Iterate over selected coins
+  //           selectedCoins.forEach(coin => {
+  //             var coinPrice = data[coin.symbol.toUpperCase()].USD; // Coin price in USD
 
-//             // Find the data series for the current coin
-//             var dataSeries = chart.data.find(
-//               series => series.name === coin.symbol
-//             );
+  //             // Find the data series for the current coin
+  //             var dataSeries = chart.data.find(
+  //               series => series.name === coin.symbol
+  //             );
 
-//             // If the data series exists, update its data points
-//             if (dataSeries) {
-//               // Add new data point to the chart
-//               dataSeries.dataPoints.push({
-//                 x: currentDate,
-//                 y: coinPrice,
-//               });
+  //             // If the data series exists, update its data points
+  //             if (dataSeries) {
+  //               // Add new data point to the chart
+  //               dataSeries.dataPoints.push({
+  //                 x: currentDate,
+  //                 y: coinPrice,
+  //               });
 
-//               // Remove data point if there are more than 12 data points
-//               if (dataSeries.dataPoints.length > 12) {
-//                 dataSeries.dataPoints.shift();
-//               }
-//             } else {
-//               // Create a new data series for the coin
-//               chart.data.push({
-//                 type: "line",
-//                 name: coin.symbol,
-//                 showInLegend: true,
-//                 dataPoints: [{ x: currentDate, y: coinPrice }],
-//               });
-//             }
-//           });
+  //               // Remove data point if there are more than 12 data points
+  //               if (dataSeries.dataPoints.length > 12) {
+  //                 dataSeries.dataPoints.shift();
+  //               }
+  //             } else {
+  //               // Create a new data series for the coin
+  //               chart.data.push({
+  //                 type: "line",
+  //                 name: coin.symbol,
+  //                 showInLegend: true,
+  //                 dataPoints: [{ x: currentDate, y: coinPrice }],
+  //               });
+  //             }
+  //           });
 
-//           chart.render();
-//         })
-//         .catch(function (error) {
-//           console.log("Error:", error);
-//         });
-//     }, 2000); // 2 seconds interval
-//   });
+  //           chart.render();
+  //         })
+  //         .catch(function (error) {
+  //           console.log("Error:", error);
+  //         });
+  //     }, 2000); // 2 seconds interval
+  //   });
 
   // Take data for more info on every coin:
 
