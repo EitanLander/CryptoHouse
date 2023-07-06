@@ -25,6 +25,20 @@ body::-webkit-scrollbar-thumb {
     border-radius: 7px;
 }
 
+.navbar-scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 999;
+}
+
+.navbar-scrolled.visible {
+    transform: translateX(0);
+}
+
 h3 {
     background-color: rgba(2, 5, 9, 0.567);
     color: white;
@@ -101,6 +115,16 @@ img {
     }
 }
 
+#coinsContainer{
+    display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 1400px;
+        margin: auto;
+        
+
+}
+
 
 .card {
     text-align: center;
@@ -111,7 +135,9 @@ img {
     font-family: "Droid Sans Mono,monospace";
     background-color: rgba(255, 255, 255, 0.066);
     backdrop-filter: blur(5px);
-
+    width: 15rem;
+     height:18rem;
+     overflow:hidden;
 
 }
 

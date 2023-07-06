@@ -3,6 +3,16 @@
 "use strict";
 
 $(() => {
+
+     window.addEventListener("scroll", function () {
+       var navbar = document.getElementById("headerNav");
+       if (window.pageYOffset > 0) {
+         navbar.classList.add("navbar-scrolled", "visible");
+       } else {
+         navbar.classList.remove("navbar-scrolled", "visible");
+       }
+     });
+    
   $("a.nav-link").click(function () {
     // Pill UI:
     $("a.nav-link").removeClass("active");
@@ -19,13 +29,18 @@ $(() => {
     await handleMoreInfo(coinId);
   });
 
-  $("#reportsLink").click(async () => await handleHome());
-  $("#homeLink").click(() => {});
+  $("#homeLink").click(async () => await handleHome());
+  $("#reportsLink").click(() => {});
   $("#aboutSection").click(() => {});
 
   async function handleHome() {
-    const coins = await getJson("coins.json"); // Replace Before Public- https://api.coingecko.com/api/v3/coins/list
+    const coins = await getJson("coins.json");
     displayCoins(coins);
+
+    // Clear the selectedCoinIds from local storage
+    localStorage.removeItem("selectedCoinIds");
+
+    // Close any open modals
   }
 
   // Search Button function
@@ -52,15 +67,13 @@ $(() => {
 
   searchButton();
 
-  let selectedCoins = [];
-
   // Displaying Crypto Coins and adding them to the Page
   function displayCoins(coins) {
     coins = coins.filter(c => c.name.length <= 8);
     let html = "";
-    for (let i = 506; i < 606; i++) {
+    for (let i = 0; i < 100; i++) {
       html += `
-        <div id="card" class="card" style="width: 15rem; height:18rem; overflow:auto;">
+        <div id="card" class="card">
           <div id="cardBody" class="card-body">
             <label class="switch">
               <input id="slider_${coins[i].id}" type="checkbox">
@@ -84,14 +97,15 @@ $(() => {
 
     // If User Decided To Leave 5 Coin , Remove the Sixth from the Array.
     $("#exitModalButton").on("click", function () {
-      if (selectedCoins.length > 0) {
+      if (selectedCoins.length > maxCoins) {
         selectedCoins.pop();
         updateSelectedCoinsModal();
-        console.log(selectedCoins);
+        $("#maxCoinsModal").modal("hide");
       }
     });
 
     // Creating The Selected Coins By An Array:
+    let selectedCoins = [];
 
     const maxCoins = 5;
 
@@ -101,7 +115,7 @@ $(() => {
       return;
     }
 
-    for (let i = 506; i < 606; i++) {
+    for (let i = 0; i < 100; i++) {
       const checkbox = $(`#slider_${coins[i].id}`);
 
       checkbox.on("change", function () {
@@ -167,7 +181,7 @@ $(() => {
           </div>
         <div id="slider">
           <label id="modalSwitch" class="switch">
-            <input class="unselect-slider" type="checkbox" data-coin-id="${coin.id}" checked>
+            <input class="unselect-slider" type="checkbox" id="inlineCheckbox_${i}" data-coin-id="${coin.id}" checked>
             <span class="slider round"></span>
           </label>
         </div>
@@ -190,8 +204,8 @@ $(() => {
 
             $(`#slider_${coinId}`).prop("checked", false);
             updateSelectedCoinsModal();
-            console.log(selectedCoins);
             $("#maxCoinsModal").modal("hide");
+            console.log(selectedCoins);
           }
         });
       }
@@ -207,13 +221,19 @@ $(() => {
         coinSymbolElement.innerText = coinSymbol + " ";
         coinsSelected.appendChild(coinSymbolElement);
       });
+
+      // Create an array of selected coin IDs
+      const selectedCoinIds = selectedCoins.map(coin => coin.symbol);
+
+      // Store the selected coin IDs in the local storage
+      localStorage.setItem("selectedCoinIds", JSON.stringify(selectedCoinIds));
     }
   }
 
   // Modal error when user try to leave without action:
   $("#maxCoinsModal").on("click", function (event) {
-    var modalContent = $(this).find(".modal-content");
-    var modalErrorMessage = $(this).find("#modalErrorMessage");
+    let modalContent = $(this).find(".modal-content");
+    let modalErrorMessage = $(this).find("#modalErrorMessage");
 
     // Check if the clicked element is outside the modal content
     if (
@@ -227,116 +247,187 @@ $(() => {
     }
   });
 
-  //   $("#reportsLink").on("click", function () {
-  //     if (selectedCoins.length === 0) {
-  //       $("#maincontainer").html(
-  //         `<div class="noneselectedmsg"> <h2>Please select up to 5 coins to display on the graph!</h2> </div>`
-  //       );
-  //     } else
-  //       var options = {
-  //         exportEnabled: true,
-  //         animationEnabled: true,
-  //         title: {
-  //           text: "Currency Price in USD",
-  //         },
-  //         axisX: {
-  //           title: "Time",
-  //         },
-  //         axisY: {
-  //           title: "Price in USD",
-  //           titleFontColor: "#4F81BC",
-  //           lineColor: "#4F81BC",
-  //           labelFontColor: "#4F81BC",
-  //           tickColor: "#4F81BC",
-  //         },
-  //         data: [
-  //           {
-  //             type: "spline",
-  //             name: "ETH",
-  //             showInLegend: true,
-  //             xValueFormatString: "HH:mm:ss",
-  //             yValueFormatString: "$#,##0.#",
-  //             dataPoints: [],
-  //           },
-  //           {
-  //             type: "spline",
-  //             name: "BTC",
-  //             showInLegend: true,
-  //             xValueFormatString: "HH:mm:ss",
-  //             yValueFormatString: "$#,##0.#",
-  //             dataPoints: [],
-  //           },
-  //         ],
-  //       };
+    $("#reportsLink").on("click", async function () {
 
-  //     var chart = new CanvasJS.Chart("chartContainer", options);
-  //     chart.render();
+    let dataIntervalId;
+    const selectedCoinIds = JSON.parse(localStorage.getItem("selectedCoinIds"));
 
-  //     // Create the chart object
-  //     var chart = new CanvasJS.Chart("chartContainer", {
-  //       title: {
-  //         text: "Selected Coins Performance",
-  //       },
-  //       axisY: {
-  //         title: "Price",
-  //         includeZero: false,
-  //         prefix: "$",
-  //       },
-  //       data: [],
-  //     });
+    if (selectedCoinIds.length === 0) {
+      $("#chartContainer").html(
+        `<div class="noData"> <h2>Please select up to 5 coins to display on the graph!</h2> </div>`
+      );
+    } else {
 
-  //     // Update data every 2 seconds
-  //     setInterval(function () {
-  //       fetch(
-  //         `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${selectedCoins
-  //           .map(coin => coin.symbol)
-  //           .join(",")}&tsyms=USD`
-  //       )
-  //         .then(function (response) {
-  //           return response.json();
-  //         })
-  //         .then(function (data) {
-  //           var currentDate = new Date();
+            $("#chartContainer").empty();
 
-  //           // Iterate over selected coins
-  //           selectedCoins.forEach(coin => {
-  //             var coinPrice = data[coin.symbol.toUpperCase()].USD; // Coin price in USD
+      let coinOne = [];
+      let coinTwo = [];
+      let coinThree = [];
+      let coinFour = [];
+      let coinFive = [];
+      let coinName = [];
 
-  //             // Find the data series for the current coin
-  //             var dataSeries = chart.data.find(
-  //               series => series.name === coin.symbol
-  //             );
+      function getData(event) {
+        const coinsSelected = selectedCoinIds.slice(0, 5);
+        $.ajax({
+          type: "GET",
+          url: `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${coinsSelected.join(
+            ","
+          )}&tsyms=USD`,
 
-  //             // If the data series exists, update its data points
-  //             if (dataSeries) {
-  //               // Add new data point to the chart
-  //               dataSeries.dataPoints.push({
-  //                 x: currentDate,
-  //                 y: coinPrice,
-  //               });
+          success: function (result) {
+            if (result.Response == "Error") {
+              clearInterval(dataIntervalId);
+              $("#chartContainer").html(
+                `<div class="noData"> <h2>No data on selected currencies - please try other coins!</h2> </div>`
+              );
+            } else {
+              $("#chartContainer").html(
+                ` <div id="chartContainer" style="height: 300px; width: 100%;"></div>`
+              );
 
-  //               // Remove data point if there are more than 12 data points
-  //               if (dataSeries.dataPoints.length > 12) {
-  //                 dataSeries.dataPoints.shift();
-  //               }
-  //             } else {
-  //               // Create a new data series for the coin
-  //               chart.data.push({
-  //                 type: "line",
-  //                 name: coin.symbol,
-  //                 showInLegend: true,
-  //                 dataPoints: [{ x: currentDate, y: coinPrice }],
-  //               });
-  //             }
-  //           });
+              let dateNow = new Date();
+              coinName = [];
 
-  //           chart.render();
-  //         })
-  //         .catch(function (error) {
-  //           console.log("Error:", error);
-  //         });
-  //     }, 2000); // 2 seconds interval
-  //   });
+              Object.entries(result).forEach(([key, value], index) => {
+                const coinData = {
+                  x: dateNow,
+                  y: value.USD,
+                };
+
+                // Push the coin real-time data to the corresponding array
+                switch (index) {
+                  case 0:
+                    coinOne.push(coinData);
+                    break;
+                  case 1:
+                    coinTwo.push(coinData);
+                    break;
+                  case 2:
+                    coinThree.push(coinData);
+                    break;
+                  case 3:
+                    coinFour.push(coinData);
+                    break;
+                  case 4:
+                    coinFive.push(coinData);
+                    break;
+                  default:
+                    break;
+                }
+
+                // Push the coin name to the array of real-time names
+                coinName.push(key);
+              });
+
+              createGraph();
+            }
+          },
+        });
+      }
+
+      dataIntervalId = setInterval(() => {
+        getData();
+      }, 2000);
+
+        function createGraph(event) {
+
+        let chart = new CanvasJS.Chart("chartContainer", {
+          exportEnabled: true,
+          animationEnabled: false,
+          theme: "light2",
+
+          title: {
+            text: "Real-time Price of Selected CryptoCurrencies in $USD",
+          },
+          axisX: {
+            valueFormatString: "HH:mm:ss",
+          },
+          axisY: {
+            title: "Coin Value",
+            suffix: "$",
+            titleFontColor: "#4F81BC",
+            lineColor: "#00A0FF",
+            labelFontColor: "#4F81BC",
+            tickColor: "#4F81BC",
+            includeZero: true,
+          },
+          toolTip: {
+            shared: true,
+          },
+          legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries,
+          },
+          data: [
+            {
+              type: "stepLine",
+              name: coinName[0],
+              showInLegend: true,
+              xValueFormatString: "HH:mm:ss",
+              dataPoints: coinOne,
+              lineDashType: "dash",
+              lineThickness: 5,
+              color: "#4F81BC",
+            },
+            {
+              type: "stepLine",
+              name: coinName[1],
+              showInLegend: true,
+              xValueFormatString: "HH:mm:ss",
+              dataPoints: coinTwo,
+              lineDashType: "dash",
+              lineThickness: 5,
+              color: "#C0504E",
+            },
+            {
+              type: "stepLine",
+              name: coinName[2],
+              showInLegend: true,
+              xValueFormatString: "HH:mm:ss",
+              dataPoints: coinThree,
+              lineDashType: "dash",
+              lineThickness: 5,
+              color: "#9BBB58",
+            },
+            {
+              type: "stepLine",
+              name: coinName[3],
+              showInLegend: true,
+              xValueFormatString: "HH:mm:ss",
+              dataPoints: coinFour,
+              lineDashType: "dash",
+              lineThickness: 5,
+              color: "#604A7B",
+            },
+            {
+              type: "stepLine",
+              name: coinName[4],
+              showInLegend: true,
+              xValueFormatString: "HH:mm:ss",
+              dataPoints: coinFive,
+              lineDashType: "dash",
+              lineThickness: 5,
+              color: "#F08000",
+            },
+          ],
+        });
+
+        chart.render();
+
+        function toggleDataSeries(e) {
+          if (
+            typeof e.dataSeries.visible === "undefined" ||
+            e.dataSeries.visible
+          ) {
+            e.dataSeries.visible = false;
+          } else {
+            e.dataSeries.visible = true;
+          }
+        }
+      }
+    }
+  });
 
   // Take data for more info on every coin:
 
@@ -388,9 +479,10 @@ $(() => {
     };
     localStorage.setItem(localStorageKey, JSON.stringify(newData));
   }
-  async function getJson(url) {
-    const response = await fetch(url);
-    const json = await response.json();
-    return json;
-  }
+  const getJson = async path => {
+    return $.ajax({
+      url: path,
+      dataType: "json",
+    });
+  };
 });
