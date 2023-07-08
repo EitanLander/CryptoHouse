@@ -1,14 +1,19 @@
+/* Global styles */
+@font-face {
+    font-family: "myFont";
+    src: url(assets/fonts/myfont.otf);
+}
+
 html {
     scroll-behavior: smooth;
 }
 
+/* Body styles */
 body {
-
     font-weight: 500;
     font-family: Tahoma;
     background-image: url(assets/images/5166950.jpg);
     min-height: 500px;
-    /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -24,21 +29,67 @@ body::-webkit-scrollbar-thumb {
     background: linear-gradient(25deg, #168bff 55%, #01185e);
     border-radius: 7px;
 }
-/* 
+
+/* Logo styles */
+#logoImg {
+    width: 80px;
+}
+
+/* Waviy animation */
+.waviy {
+    position: relative;
+    -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.176));
+    font-size: 60px;
+    font-family: "myFont";
+    text-align: center;
+}
+
+.waviy span {
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    text-transform: uppercase;
+    animation: waviy 3s infinite;
+    animation-delay: calc(.1s * var(--i));
+}
+
+@keyframes waviy {
+
+    0%,
+    40%,
+    100% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Header navigation */
+#headerNav {
+    text-align: center;
+}
+
+.nav-link {
+    font-size: 20px;
+}
+
 .navbar-scrolled {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     transform: translateX(-100%);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.4s ease-in-out;
     z-index: 999;
 }
 
 .navbar-scrolled.visible {
     transform: translateX(0);
-} */
+}
 
+/* Header styles */
 h3 {
     background-color: rgba(2, 5, 9, 0.567);
     color: white;
@@ -49,12 +100,14 @@ h3 {
     background-image: linear-gradient(to bottom, #00aaff, #0077ff);
 }
 
+/* Section styles */
 #homeSection,
 #reportsSection,
 #aboutSection {
     text-align: center;
 }
 
+/* Scroll top button */
 #scrollTop {
     position: fixed;
     top: 800px;
@@ -63,9 +116,13 @@ h3 {
 
 #scrollTop,
 img {
-    width: 50px;
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
 }
 
+/* Loading animation */
 .loading {
     position: fixed;
     top: 0;
@@ -115,18 +172,18 @@ img {
     }
 }
 
-#coinsContainer{
+/* Coins container */
+#coinsContainer {
     display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 1400px;
-        margin: auto;
-        
-
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+    margin: auto;
 }
 
-
+/* Card styles */
 .card {
+    margin: 5px;
     text-align: center;
     display: inline-block;
     color: white;
@@ -136,19 +193,46 @@ img {
     background-color: rgba(255, 255, 255, 0.066);
     backdrop-filter: blur(5px);
     width: 15rem;
-     height:18rem;
-     overflow:hidden;
-
+    height: 18rem;
+    overflow: hidden;
 }
 
+@media (max-width: 1408px) {
+    #coinsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 1000px;
+        margin: auto;
+    }
+}
 
+@media (max-width: 1000px) {
+    #coinsContainer {
+        width: 400px;
+    }
 
+    .card {
+        width: 200px;
+        margin: 0;
+    }
+
+    .waviy {
+        font-size: 50px;
+    }
+
+    #logoImg {
+        width: 70px;
+    }
+}
+
+/* Coin more info */
 #coinMoreInfo {
     padding: 5px;
     min-height: 120px;
 }
 
-
+/* Banner title */
 #bannerTitle {
     position: absolute;
     font-size: 120px;
@@ -160,6 +244,7 @@ h1 {
     text-align: center;
 }
 
+/* Hidden sections */
 #reportsSection,
 #aboutSection {
     display: none;
@@ -169,7 +254,7 @@ a:hover {
     cursor: pointer;
 }
 
-/* The switch - the box around the slider */
+/* Switch styles */
 .switch {
     position: absolute;
     right: 15px;
@@ -183,14 +268,12 @@ a:hover {
     cursor: not-allowed;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* The slider */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -229,11 +312,11 @@ input:checked+.slider:before {
     transform: translateX(26px);
 }
 
+/* Selected coins */
 .selectedCoins {
     font-size: 20px;
     color: white;
     text-transform: uppercase;
-
 }
 
 .slider.round {
@@ -248,6 +331,7 @@ input:checked+.slider:before {
     width: 25px;
 }
 
+/* About me section */
 #aboutMe {
     position: relative;
     margin-top: 30px;
@@ -282,18 +366,7 @@ input:checked+.slider:before {
     background-color: #0088ff53;
 }
 
-#coinName {
-    padding-top: 3px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#slider {
-    display: inline-block;
-    margin-bottom: 35px;
-}
-
-
+/* Modal styles */
 .modal-content {
     text-align: center;
     display: inline-block;
@@ -305,9 +378,7 @@ input:checked+.slider:before {
     backdrop-filter: blur(15px);
     height: 450px;
     width: 600px;
-
 }
-
 
 #exitModalButton {
     font-size: 25px;
@@ -371,16 +442,13 @@ input:checked+.slider:before {
 }
 
 #cryptoRain:hover {
-
-
     color: white;
     border: solid 2px #ffffff;
     box-shadow: #fbfbfb 1px 1px 35px;
     background-color: rgba(255, 255, 255, 0.033);
-
 }
 
-
+/* Container styles */
 .container {
     top: 0;
     left: 0;
@@ -389,25 +457,47 @@ input:checked+.slider:before {
     overflow: hidden;
 }
 
+/* Falling coin animation */
 .bitcoin-coin {
     position: absolute;
     top: -100px;
-    /* Initial position outside the container */
     left: 50%;
-    /* Center horizontally */
     transform: translateX(-50%);
     animation: fallingCoin 3s ease-in-out infinite;
-    /* Animation properties */
 }
 
 @keyframes fallingCoin {
     0% {
         top: -100px;
-        /* Starting position outside the container */
     }
 
     100% {
         top: calc(100% - 100px);
-        /* Ending position at the bottom of the container */
     }
+}
+
+/* Chart container */
+#chartContainer {
+    margin: auto;
+    height: 500px;
+    width: 1500px;
+}
+
+@media (max-width: 768px) {
+    #chartContainer {
+        height: 400px;
+        width: 450px;
+    }
+         .waviy {
+             font-size: 30px;
+         }
+    
+         #logoImg {
+             width: 70px;
+         }
+}
+
+/* No data message */
+.noData {
+    color: white;
 }

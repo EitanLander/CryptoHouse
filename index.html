@@ -27,7 +27,10 @@
 </head>
 
 <body>
-    <a id="scrollTop" href="#top"><img src="assets/images/arrowUp.png"></a>
+
+
+    <a id="scrollTop" href="#top"><img src="assets/images/arrowUp.png">
+    Scroll Up</a>
 
 
 
@@ -59,24 +62,43 @@
 
     <div class="container">
     </div>
+    
 
+<div class="waviy">
+                                <img id="logoImg" src="assets/images/sitelogo.png" />
 
-    <nav class="navbar navbar-expand-lg navbar-dark p-3 bg-primary" id="headerNav">
+    <span style="--i:1">C</span>
+    <span style="--i:2">R</span>
+    <span style="--i:3">Y</span>
+    <span style="--i:4">P</span>
+    <span style="--i:5">T</span>
+    <span style="--i:6">O</span>
+    <span style="--i:7">H</span>
+    <span style="--i:8">O</span>
+    <span style="--i:9">U</span>
+    <span style="--i:10">S</span>
+    <span style="--i:11">E</span>
+                                <img id="logoImg" src="assets/images/sitelogo.png" />
+
+</div>
+    <nav class="navbar navbar-expand-lg navbar-dark p-1 smaller-navbar" id="headerNav">
+       
         <div class="container-fluid">
+                            
             <a class="navbar-brand d-block d-lg-none">
-                <img src="assets/images/cryptologo.png" height="80" />
 
             </a>
-            <button id="cryptoRain" onclick="cryptoRain()">Crypto Rain</button>
-
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <button id="cryptoRain" onclick="cryptoRain()">Rain Maker</button>
+
+
+            
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a id="homeLink" class="nav-link active" aria-current="page"
                             data-section="homeSection">Coins</a>
@@ -139,8 +161,7 @@
     <section id="reportsSection">
         <h3>Reports</h3>
 
-
-        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <div id="chartMessage"></div>
 
 
     </section>

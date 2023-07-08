@@ -4,14 +4,15 @@
 
 $(() => {
 
-     window.addEventListener("scroll", function () {
-       var navbar = document.getElementById("headerNav");
-       if (window.pageYOffset > 0) {
-         navbar.classList.add("navbar-scrolled", "visible");
-       } else {
-         navbar.classList.remove("navbar-scrolled", "visible");
-       }
-     });
+     
+  $(window).scroll(function () {
+    var navbar = $("#headerNav");
+    if ($(window).scrollTop() > 0) {
+      navbar.addClass("navbar-scrolled visible");
+    } else {
+      navbar.removeClass("navbar-scrolled visible");
+    }
+  });
     
   $("a.nav-link").click(function () {
     // Pill UI:
@@ -44,28 +45,24 @@ $(() => {
   }
 
   // Search Button function
-  function searchButton() {
-    const coinList = document.getElementById("coinsContainer");
-    const cards = coinList.getElementsByClassName("card");
+  $("#searchButton").on("click", function () {
+    const coinList = $("#coinsContainer");
+    const cards = coinList.find(".card");
+    const searchInput = $("#searchInput");
+    const filter = searchInput.val().toLowerCase();
 
-    $("#searchButton").on("click", function () {
-      const filter = searchInput.value.toLowerCase();
+    for (let i = 0; i < cards.length; i++) {
+      const item = $(cards[i]);
+      const text = item.text().toLowerCase();
 
-      for (let i = 0; i < cards.length; i++) {
-        const item = cards[i];
-        const text = item.textContent.toLowerCase();
-
-        // Search filter by letter or full name
-        if (text.includes(filter) || filter === "") {
-          item.style.display = "";
-        } else {
-          item.style.display = "none";
-        }
+      // Search filter by letter or full name
+      if (text.includes(filter) || filter === "") {
+        item.show();
+      } else {
+        item.hide();
       }
-    });
-  }
-
-  searchButton();
+    }
+  });
 
   // Displaying Crypto Coins and adding them to the Page
   function displayCoins(coins) {
@@ -246,19 +243,22 @@ $(() => {
       modalErrorMessage.text(""); // Clear the error message if the click is within the modal content
     }
   });
+    
+    
+      $("#reportsLink").on("click", async function () {
 
-    $("#reportsLink").on("click", async function () {
+        let dataIntervalId;
+        clearInterval(dataIntervalId);
+        $("#chartContainer").empty();
 
-    let dataIntervalId;
     const selectedCoinIds = JSON.parse(localStorage.getItem("selectedCoinIds"));
 
-    if (selectedCoinIds.length === 0) {
-      $("#chartContainer").html(
+          if (!selectedCoinIds) {
+      $("#chartMessage").html(
         `<div class="noData"> <h2>Please select up to 5 coins to display on the graph!</h2> </div>`
       );
     } else {
 
-            $("#chartContainer").empty();
 
       let coinOne = [];
       let coinTwo = [];
@@ -276,14 +276,14 @@ $(() => {
           )}&tsyms=USD`,
 
           success: function (result) {
-            if (result.Response == "Error") {
+            if (result.Response === "Error") {
               clearInterval(dataIntervalId);
-              $("#chartContainer").html(
+              $("#chartMessage").html(
                 `<div class="noData"> <h2>No data on selected currencies - please try other coins!</h2> </div>`
               );
             } else {
-              $("#chartContainer").html(
-                ` <div id="chartContainer" style="height: 300px; width: 100%;"></div>`
+              $("#chartMessage").html(
+                ` <div id="chartContainer""></div>`
               );
 
               let dateNow = new Date();
@@ -366,7 +366,6 @@ $(() => {
               showInLegend: true,
               xValueFormatString: "HH:mm:ss",
               dataPoints: coinOne,
-              lineDashType: "dash",
               lineThickness: 5,
               color: "#4F81BC",
             },
@@ -376,7 +375,6 @@ $(() => {
               showInLegend: true,
               xValueFormatString: "HH:mm:ss",
               dataPoints: coinTwo,
-              lineDashType: "dash",
               lineThickness: 5,
               color: "#C0504E",
             },
@@ -386,7 +384,6 @@ $(() => {
               showInLegend: true,
               xValueFormatString: "HH:mm:ss",
               dataPoints: coinThree,
-              lineDashType: "dash",
               lineThickness: 5,
               color: "#9BBB58",
             },
@@ -396,7 +393,6 @@ $(() => {
               showInLegend: true,
               xValueFormatString: "HH:mm:ss",
               dataPoints: coinFour,
-              lineDashType: "dash",
               lineThickness: 5,
               color: "#604A7B",
             },
@@ -406,7 +402,6 @@ $(() => {
               showInLegend: true,
               xValueFormatString: "HH:mm:ss",
               dataPoints: coinFive,
-              lineDashType: "dash",
               lineThickness: 5,
               color: "#F08000",
             },
