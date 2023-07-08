@@ -24,7 +24,7 @@ body::-webkit-scrollbar-thumb {
     background: linear-gradient(25deg, #168bff 55%, #01185e);
     border-radius: 7px;
 }
-
+/* 
 .navbar-scrolled {
     position: fixed;
     top: 0;
@@ -37,7 +37,7 @@ body::-webkit-scrollbar-thumb {
 
 .navbar-scrolled.visible {
     transform: translateX(0);
-}
+} */
 
 h3 {
     background-color: rgba(2, 5, 9, 0.567);
