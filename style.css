@@ -197,34 +197,7 @@ img {
     overflow: hidden;
 }
 
-@media (max-width: 1408px) {
-    #coinsContainer {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 1000px;
-        margin: auto;
-    }
-}
 
-@media (max-width: 1000px) {
-    #coinsContainer {
-        width: 400px;
-    }
-
-    .card {
-        width: 200px;
-        margin: 0;
-    }
-
-    .waviy {
-        font-size: 50px;
-    }
-
-    #logoImg {
-        width: 70px;
-    }
-}
 
 /* Coin more info */
 #coinMoreInfo {
@@ -495,6 +468,46 @@ input:checked+.slider:before {
          #logoImg {
              width: 70px;
          }
+}
+
+@media (max-width: 1408px) {
+    #coinsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 1000px;
+        margin: auto;
+    }
+
+        #chartContainer {
+            height: 500px;
+            width: 850px;
+        }
+}
+
+@media (max-width: 1000px) {
+
+    #chartContainer {
+            height: 500px;
+            width: 350px;
+        }
+
+    #coinsContainer {
+        width: 400px;
+    }
+
+    .card {
+        width: 200px;
+        margin: 0;
+    }
+
+    .waviy {
+        font-size: 50px;
+    }
+
+    #logoImg {
+        width: 70px;
+    }
 }
 
 /* No data message */
