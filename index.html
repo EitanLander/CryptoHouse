@@ -86,6 +86,8 @@
                                 <img id="logoImg" src="assets/images/sitelogo.png" />
 
 </div>
+
+<div class="navBarDesign">
     <nav class="navbar navbar-expand-lg navbar-dark p-1 smaller-navbar" id="headerNav">
        
         <div class="container-fluid">
@@ -97,7 +99,6 @@
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <button id="cryptoRain" onclick="cryptoRain()">Rain Maker</button>
 
 
             
@@ -120,7 +121,7 @@
                     </li>
                     <li class="nav-item">
                         <p id="aboutLink" class="nav-link">Selected Coins :
-                        <p id="coinsSelected"></p>
+                        <span id="coinsSelected"></span>
                         </p>
                     </li>
                     <li class="nav-item dropdown">
@@ -131,10 +132,18 @@
                             <button id="searchButton" class="btn btn-outline-info" type="button">
                                 Search
                             </button>
+
+                            <span>
+                            <button id="cryptoRain" onclick="cryptoRain()">Rain Maker</button>
+                        </span>
+
+                            
                         </form>
+                        
             </div>
         </div>
     </nav>
+</div>
 
     <div class="loading">
         <div><img id="cryptoLoading" src="assets/images/cryptologo.png"></div>
