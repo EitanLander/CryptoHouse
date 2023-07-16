@@ -93,6 +93,7 @@ body::-webkit-scrollbar-thumb {
 
 /* Header styles */
 h3 {
+    text-align: center;
     background-color: rgba(2, 5, 9, 0.567);
     color: white;
     font-size: 45px;
@@ -112,7 +113,6 @@ h3 {
 
 /* Section styles */
 #homePage,
-#homeSection,
 #reportsSection,
 #aboutSection {
     text-align: center;
@@ -208,6 +208,17 @@ img {
     overflow: hidden;
 }
 
+#playMusic {
+    margin-left: 15px;
+    font-size: 25px;
+    color: white;
+    border: solid 2px #00a2ff;
+    box-shadow: #fbfbfb 1px 1px 15px;
+    border-radius: 15px;
+    width: 150px;
+    background-color: rgba(255, 255, 255, 0.033);
+    backdrop-filter: blur(10px);
+}
 
 
 /* Coin more info */
@@ -230,7 +241,8 @@ h1 {
 
 /* Hidden sections */
 #reportsSection,
-#aboutSection {
+#aboutSection,
+#homeSection{
     display: none;
 }
 

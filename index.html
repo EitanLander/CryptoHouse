@@ -22,9 +22,15 @@
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
 
+    
     <title>Second Project - Bitcoin Site</title>
 </head>
 <body id="top">
+
+    <audio id="myAudio">
+        <source src="/assets/music/song.mp3">
+      </audio>
+
 <a id="scrollTop"><img src="assets/images/arrowUp.png">Scroll Up</a>
 <div id="websiteBanner" class="news-container">
     <div class="title">
@@ -62,12 +68,14 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a id="homeLink" class="nav-link active" aria-current="page" data-section="homeSection">Coins</a>
+                        <a id="newsLink" class="nav-link active" aria-current="page" data-section="newsSection">News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="homeLink" class="nav-link" data-section="homeSection">Coins</a>
                     </li>
                     <li class="nav-item">
                         <a id="reportsLink" class="nav-link" data-section="reportsSection">Live Reports</a>
                     </li>
-                    <li class="nav-item d-none d-lg-block"></li>
                     <li class="nav-item">
                         <a id="aboutLink" class="nav-link" data-section="aboutSection">About</a>
                     </li>
@@ -80,6 +88,9 @@
                                    aria-label="Search"/>
                             <span>
                                 <button type="button" id="cryptoRain">Rain Maker</button>
+                            </span>
+                            <span>
+                                <button type="button" id="playMusic">Play Music</button>
                             </span>
                         </form>
                     </li>
@@ -132,7 +143,7 @@
             </p>
             <br>
             <p>
-                This website is my second project.<br> It is called CryptoSelect and
+                This website is my second project.<br> It is called CryptoHouse and
                 has various features, including:
             </p>
             <br>
@@ -148,5 +159,12 @@
             <br>
         </div>
     </section>
+    <section id="newsSection">
+        <h3>Crypto House</h3>
+        <div id="cryptoNews" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner"></div>
+        </div>
+    </section>
+
 </body>
 </html>

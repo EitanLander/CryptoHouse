@@ -43,3 +43,15 @@ $(() => {
     // Bind the cryptoRain() function to the click event of the #cryptoRain button
     $("#cryptoRain").click(cryptoRain);
   });
+
+  const audio = $("#myAudio")[0];
+    $("#playMusic").click(function() {
+      if (audio.paused) {
+        audio.play();
+        $(this).text("Stop Audio");
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        $(this).text("Play Audio");
+      }
+    });
