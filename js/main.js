@@ -8,7 +8,7 @@ $(() => {
   }
 
   // Scroll to top when the "Scroll Up" link is clicked
-  $("#scrollTop").click(function () {
+  $("#scrollTop").click(() => {
     scrollToTop();
   });
 
@@ -38,31 +38,26 @@ $(() => {
   });
 
   $("#homeLink").click(async () => await handleHome());
-  $("#reportsLink").click(() => {});
-  $("#aboutSection").click(() => {});
 
   async function handleHome() {
-    const coins = await getJson("coins.json");
+    const coins = await getJson("https://api.coingecko.com/api/v3/coins/list");
     displayCoins(coins);
-    
 
     // Clear the selectedCoinIds from local storage
     localStorage.removeItem("selectedCoinIds");
-
-    // Close any open modals
+    $("#coinsSelected").html("");
   }
 
-  // Search Button function
-  $("#searchButton").on("click", function () {
+  $("#searchInput").on("input", function () {
     const coinList = $("#coinsContainer");
     const cards = coinList.find(".card");
-    const searchInput = $("#searchInput");
+    const searchInput = $(this);
     const filter = searchInput.val().toLowerCase();
-
+  
     for (let i = 0; i < cards.length; i++) {
       const item = $(cards[i]);
       const text = item.text().toLowerCase();
-
+  
       // Search filter by letter or full name
       if (text.includes(filter) || filter === "") {
         item.show();
@@ -76,8 +71,8 @@ $(() => {
   function displayCoins(coins) {
     coins = coins.filter((c) => c.name.length <= 8);
     let html = "";
-    
-    for (let i = 0; i < 100; i++) { 
+
+    for (let i = 20; i < 110; i++) {
       html += createCoinCard(coins[i]);
     }
     $("#coinsContainer").html(html);
@@ -106,7 +101,7 @@ $(() => {
               </button>
               <div id="coinMoreInfo">
                 <div class="collapse collapse-vertical" id="collapse_${coin.id}">
-                  <div class="card card-body" style="width: 200px;"></div>
+                  <div class="card card-body"></div>
                 </div>
               </div>
             </div>
@@ -114,53 +109,55 @@ $(() => {
         `;
     }
 
-    // Creating The Selected Coins By An Array:
-    let selectedCoins = [];
+   // Creating The Selected Coins By An Array:
+let selectedCoins = [];
 
-    const maxCoins = 5;
+const maxCoins = 5;
 
-    // Pop up a modal when user reach max coins (5 coins).
-    if (selectedCoins.length === maxCoins) {
-      $("#maxCoinsModal").modal("show");
-      return;
-    }
+// Pop up a modal when user reaches max coins (5 coins).
+if (selectedCoins.length === maxCoins) {
+  $("#maxCoinsModal").modal("show");
+  return;
+}
 
-    for (let i = 0; i < coins.length; i++) {
-      const checkbox = $(`#slider_${coins[i].id}`);
+for (let i = 0; i < coins.length; i++) {
+  const checkbox = $(`#slider_${coins[i].id}`);
 
-      checkbox.on("change", function () {
-        const isChecked = checkbox.prop("checked");
-        const coinId = checkbox.attr("id").substring(7);
+  checkbox.on("change", () => {
+    const isChecked = checkbox.prop("checked");
+    const coinId = checkbox.attr("id").substring(7);
 
-        // When user check coin , it push it to the array:
-        if (isChecked) {
-          if (selectedCoins.length < maxCoins) {
-            const coin = coins.find((c) => c.id === coinId);
-            if (!selectedCoins.some((c) => c.id === coinId)) {
-              selectedCoins.push(coin);
-            }
-            // When user check the sixth coin , create an offer for replacing on the modal:
-          } else {
-            const modalHeader = $("#sixthCoin");
-            const sixthCoin = coinId;
-            const addSixthCoinToArray = `
-    <p>To add the "<b>${sixthCoin}</b>" coin, you must unselect another coin:</p>`;
-            modalHeader.html(addSixthCoinToArray);
-            checkbox.prop("checked", false);
-            $("#maxCoinsModal").modal("show");
+    // Remove the duplicated code block from here
 
-            const coin = coins.find((c) => c.id === coinId);
-            if (!selectedCoins.some((c) => c.id === coinId)) {
-              selectedCoins.push(coin);
-            }
-          }
-        } else {
-          selectedCoins = selectedCoins.filter((c) => c.id !== coinId);
+    if (isChecked) {
+      if (selectedCoins.length < maxCoins) {
+        // Add the coin to selectedCoins directly
+        const coin = coins.find((c) => c.id === coinId);
+        if (!selectedCoins.some((c) => c.id === coinId)) {
+          selectedCoins.push(coin);
         }
+      } else {
+        const modalHeader = $("#sixthCoin");
+        const sixthCoin = coinId;
+        const addSixthCoinToArray = `
+<p>To add the "<b>${sixthCoin}</b>" coin, you must unselect another coin:</p>`;
+        modalHeader.html(addSixthCoinToArray);
+        checkbox.prop("checked", false);
+        $("#maxCoinsModal").modal("show");
 
-        updateSelectedCoinsModal();
-      });
+        // Add the coin to selectedCoins directly
+        const coin = coins.find((c) => c.id === coinId);
+        if (!selectedCoins.some((c) => c.id === coinId)) {
+          selectedCoins.push(coin);
+        }
+      }
+    } else {
+      selectedCoins = selectedCoins.filter((c) => c.id !== coinId);
     }
+
+    updateSelectedCoinsModal();
+  });
+}
 
     // Create the the modal with coins and sliders:
 
@@ -220,20 +217,21 @@ $(() => {
         });
       }
 
-      const coinsSelected = document.getElementById("coinsSelected");
-      coinsSelected.innerHTML = "";
+      $("#coinsSelected").html("");
 
       // Add only the symbols of selected coins to coinsSelected
-      selectedCoins.forEach((coin) => {
+      $.each(selectedCoins, function (_, coin) {
         const coinSymbol = coin.symbol;
-        const coinSymbolElement = document.createElement("span");
-        coinSymbolElement.classList.add("selectedCoins");
-        coinSymbolElement.innerText = coinSymbol + " | ";
-        coinsSelected.appendChild(coinSymbolElement);
+        const coinSymbolElement = $("<span>")
+          .addClass("selectedCoins")
+          .text(coinSymbol + " | ");
+        $("#coinsSelected").append(coinSymbolElement);
       });
 
       // Create an array of selected coin IDs
-      const selectedCoinIds = selectedCoins.map((coin) => coin.symbol);
+      const selectedCoinIds = $.map(selectedCoins, function (coin) {
+        return coin.symbol;
+      });
 
       // Store the selected coin IDs in the local storage
       localStorage.setItem("selectedCoinIds", JSON.stringify(selectedCoinIds));
@@ -446,11 +444,21 @@ $(() => {
     }
   });
 
-  // Take data for more info on every coin:
+  function getJson(path) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: path,
+        dataType: "json",
+        success: resolve,
+        error: reject,
+      });
+    });
+  }
+  
   async function handleMoreInfo(coinId) {
     const localStorageKey = "coin_" + coinId;
     const storedData = localStorage.getItem(localStorageKey);
-
+  
     // Check if there is stored data already and if it's not expired
     if (storedData) {
       const data = JSON.parse(storedData);
@@ -467,38 +475,37 @@ $(() => {
         return;
       }
     }
-
+  
     // API for the coins info:
-    const coin = await getJson(
-      "https://api.coingecko.com/api/v3/coins/" + coinId
-    );
-    const imageSource = coin.image.small;
-    const usd = coin.market_data.current_price.usd;
-    const eur = coin.market_data.current_price.eur;
-    const ils = coin.market_data.current_price.ils;
-    const moreInfo = `
-      <img src="${imageSource}"><br>
-      USD: $${usd} <br>
-      USD: €${eur} <br>
-      USD: ₪${ils} <br>
-    `;
-    $(`#collapse_${coinId}`).html(moreInfo);
-
-    // Store the updated data in local storage
-    const newData = {
-      imageSource,
-      usd,
-      eur,
-      ils,
-      timestamp: new Date().getTime(),
-    };
-    localStorage.setItem(localStorageKey, JSON.stringify(newData));
+    try {
+      const coin = await getJson(
+        "https://api.coingecko.com/api/v3/coins/" + coinId
+      );
+      const imageSource = coin.image.small;
+      const usd = coin.market_data.current_price.usd;
+      const eur = coin.market_data.current_price.eur;
+      const ils = coin.market_data.current_price.ils;
+      const moreInfo = `
+        <img src="${imageSource}"><br>
+        USD: $${usd} <br>
+        USD: €${eur} <br>
+        USD: ₪${ils} <br>
+      `;
+      $(`#collapse_${coinId}`).html(moreInfo);
+  
+      // Store the updated data in local storage
+      const newData = {
+        imageSource,
+        usd,
+        eur,
+        ils,
+        timestamp: new Date().getTime(),
+      };
+      localStorage.setItem(localStorageKey, JSON.stringify(newData));
+    } catch (error) {
+      console.error("Error occurred while fetching coin data:", error);
+      // Handle the error, show an error message, or perform any necessary actions
+    }
   }
 
-  const getJson = async (path) => {
-    return $.ajax({
-      url: path,
-      dataType: "json",
-    });
-  };
 });

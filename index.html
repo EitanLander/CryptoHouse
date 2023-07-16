@@ -1,77 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="cryptonews.css">
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/cryptonews.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/snowcrypto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="jquery-3.7.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script defer src="main.js"></script>
-    <script src="snowcrypto.js"></script>
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/snowcrypto.js"></script>
+    <script defer src="js/cryptonews.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
 
     <title>Second Project - Bitcoin Site</title>
 </head>
-
 <body id="top">
-
-
-
-
-        <!-- <audio src="/assets/music/song.mp3" autoplay ></audio> -->
-
-
-    <a id="scrollTop"><img src="assets/images/arrowUp.png">
-    Scroll Up</a>
-
-
-
-
-
-
-    <div id="websiteBanner" class="news-container">
-        <div class="title">
-            Crypto News
-        </div>
-
-
-
-        <ul id="coinsNewsContainer">
-            <li><img class="icon" src="assets/images/bitcoin.png"> Bitcoin Sinks Below 25K <img class="icon"
-                    src="assets/images/bitcoin.png"> </li>
-            <li><img class="icon" src="assets/images/ethereum.png"> ETH price has touched YTD highs of $2130 <img
-                    class="icon" src="assets/images/ethereum.png"> </li>
-            <li style="color: red;"><img class="icon" src="assets/images/usdt.png"> Tether is down by -0.29% <img
-                    class="icon" src="assets/images/usdt.png"> </li>
-
-
-
-        </ul>
-
-
+<a id="scrollTop"><img src="assets/images/arrowUp.png">Scroll Up</a>
+<div id="websiteBanner" class="news-container">
+    <div class="title">
+        Crypto News
     </div>
-    <br><br>
-
-    <div class="container">
-    </div>
-    
-
+    <ul id="coinsNewsContainer">
+        <!-- News fetched from CoinGecko API will be dynamically inserted here -->
+    </ul>
+</div>
+<br><br>
+<div class="container"></div>
 <div class="waviy">
-                                <img id="logoImg" src="assets/images/sitelogo.png" />
-
+    <img id="logoImg" src="assets/images/sitelogo.png"/>
     <span style="--i:1">C</span>
     <span style="--i:2">R</span>
     <span style="--i:3">Y</span>
@@ -83,112 +49,78 @@
     <span style="--i:9">U</span>
     <span style="--i:10">S</span>
     <span style="--i:11">E</span>
-                                <img id="logoImg" src="assets/images/sitelogo.png" />
-
+    <img id="logoImg" src="assets/images/sitelogo.png"/>
 </div>
-
 <div class="navBarDesign">
     <nav class="navbar navbar-expand-lg navbar-dark p-1 smaller-navbar" id="headerNav">
-       
         <div class="container-fluid">
-                            
-            <a class="navbar-brand d-block d-lg-none">
-
-            </a>
+            <a class="navbar-brand d-block d-lg-none"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-
-            
-
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a id="homeLink" class="nav-link active" aria-current="page"
-                            data-section="homeSection">Coins</a>
+                        <a id="homeLink" class="nav-link active" aria-current="page" data-section="homeSection">Coins</a>
                     </li>
-
-
                     <li class="nav-item">
                         <a id="reportsLink" class="nav-link" data-section="reportsSection">Live Reports</a>
                     </li>
-                    <li class="nav-item d-none d-lg-block">
-                    </li>
+                    <li class="nav-item d-none d-lg-block"></li>
                     <li class="nav-item">
                         <a id="aboutLink" class="nav-link" data-section="aboutSection">About</a>
                     </li>
                     <li class="nav-item">
-                        <p id="aboutLink" class="nav-link">Selected Coins :
-                        <span id="coinsSelected"></span>
-                        </p>
+                        <p id="aboutLink" class="nav-link">Selected Coins<span id="coinsSelected"></span></p>
                     </li>
                     <li class="nav-item dropdown">
-
                         <form class="d-flex">
-                            <input id="searchInput" class="form-control me-2" type="search" placeholder="Search"
-                                aria-label="Search" />
-                            <button id="searchButton" class="btn btn-outline-info" type="button">
-                                Search
-                            </button>
-
+                            <input id="searchInput" class="form-control me-2" type="search" placeholder="Search Coin Name"
+                                   aria-label="Search"/>
                             <span>
-                            <button id="cryptoRain" onclick="cryptoRain()">Rain Maker</button>
-                        </span>
-
-                            
+                                <button type="button" id="cryptoRain">Rain Maker</button>
+                            </span>
                         </form>
-                        
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 </div>
-
-    <div class="loading">
-        <div><img id="cryptoLoading" src="assets/images/cryptologo.png"></div>
-    </div>
-
-    <div id="maxCoinsModal" class="modal" data-bs-backdrop="static">
-        <div class="modal-dialog ">
-            <div class="modal-content animate__animated animate__swing">
-                <div class="modal-header">
-                    <h5 class="modal-title">You selected too many coin.</h5>
-                </div>
-                <div id="modalErrorMessage"></div>
-                <br>
-                <div id="sixthCoin"></div>
-
-                <div class="modal-body">
-                </div>
-                <button id="exitModalButton" type="button" data-bs-dismiss="modal">Stay With Same Coins</button>
+<div class="loading">
+    <div><img id="cryptoLoading" src="assets/images/cryptologo.png"></div>
+</div>
+<div id="maxCoinsModal" class="modal" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content animate__animated animate__swing">
+            <div class="modal-header">
+                <h5 class="modal-title">You selected too many coin.</h5>
             </div>
+            <div id="modalErrorMessage"></div>
+            <br>
+            <div id="sixthCoin"></div>
+            <div class="modal-body"></div>
+            <button id="exitModalButton" type="button" data-bs-dismiss="modal">Stay With Same Coins</button>
         </div>
     </div>
-
-    <section id="homeSection">
-        <h3>Coins</h3>
-
-        <div id="coinsContainer"></div>
-    </section>
-
-    <section id="reportsSection">
-        <h3>Reports</h3>
-
-        <div id="chartMessage"></div>
-
-
-    </section>
-
-    <section id="aboutSection">
-        <h3>About</h3>
-        <div id="aboutMe">
-
-            <h1>About Me</h1>
-            <p>
-                Hello!<br> My name is Eitan Lander,<br> and I'm a passionate web developer with a focus on full stack
-                development. <br>
-                I am 25 years old and currently studying at <br>John Bryce College for Full Stack Web Development.
+</div>
+<section id="homeSection">
+    <h3>Coins</h3>
+    <div id="coinsContainer"></div>
+</section>
+<section id="reportsSection">
+    <h3>Reports</h3>
+    <div id="chartMessage"></div>
+</section>
+<section id="aboutSection">
+    <h3>About</h3>
+    <div id="aboutMe">
+        <h1>About Me</h1>
+        <p>
+            Hello!<br>My name is Eitan Lander,<br>and I'm a passionate web developer with a focus on full stack
+            development.<br>
+            I am 25 years old and currently studying at <br>John Bryce College for Full Stack Web Development.
             </p>
             <br>
             <p>
@@ -214,9 +146,7 @@
             <img id="myPhoto" src="/assets/images/me.png" alt="EitanLander">
             <div id="photoShadow"></div>
             <br>
-
         </div>
     </section>
 </body>
-
 </html>

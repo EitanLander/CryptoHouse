@@ -1,0 +1,35 @@
+
+/* About me section */
+#aboutMe {
+    position: relative;
+    margin-top: 30px;
+    box-shadow: #0073ff 1px 1px 105px;
+    border-radius: 15px;
+    width: 1000px;
+    height: 720px;
+    text-align: center;
+    font-size: 19px;
+    display: inline-block;
+    color: white;
+    text-transform: uppercase;
+    background-color: rgba(18, 17, 17, 0.859);
+}
+
+#myPhoto {
+    width: 250px;
+    position: absolute;
+    bottom: 20px;
+    left: 850px;
+    z-index: 200;
+}
+
+#photoShadow {
+    position: absolute;
+    border-radius: 95px;
+    left: 855px;
+    top: 590px;
+    width: 200px;
+    height: 100px;
+    box-shadow: #0073ff 1px 1px 105px;
+    background-color: #0088ff53;
+}

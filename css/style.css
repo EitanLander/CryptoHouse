@@ -1,7 +1,7 @@
 /* Global styles */
 @font-face {
     font-family: "myFont";
-    src: url(assets/fonts/myfont.otf);
+    src: url(/assets/fonts/myfont.otf);
 }
 
 html {
@@ -12,7 +12,7 @@ html {
 body {
     font-weight: 500;
     font-family: Tahoma;
-    background-image: url(assets/images/5166950.jpg);
+    background-image: url(/assets/images/5166950.jpg);
     min-height: 500px;
     background-attachment: fixed;
     background-position: center;
@@ -111,6 +111,7 @@ h3 {
 }
 
 /* Section styles */
+#homePage,
 #homeSection,
 #reportsSection,
 #aboutSection {
@@ -314,152 +315,7 @@ input:checked+.slider:before {
     width: 25px;
 }
 
-/* About me section */
-#aboutMe {
-    position: relative;
-    margin-top: 30px;
-    box-shadow: #0073ff 1px 1px 105px;
-    border-radius: 15px;
-    width: 1000px;
-    height: 720px;
-    text-align: center;
-    font-size: 19px;
-    display: inline-block;
-    color: white;
-    text-transform: uppercase;
-    background-color: rgba(18, 17, 17, 0.859);
-}
 
-#myPhoto {
-    width: 250px;
-    position: absolute;
-    bottom: 20px;
-    left: 850px;
-    z-index: 200;
-}
-
-#photoShadow {
-    position: absolute;
-    border-radius: 95px;
-    left: 855px;
-    top: 590px;
-    width: 200px;
-    height: 100px;
-    box-shadow: #0073ff 1px 1px 105px;
-    background-color: #0088ff53;
-}
-
-/* Modal styles */
-.modal-content {
-    text-align: center;
-    display: inline-block;
-    color: white;
-    border: solid 2px #0195ff30;
-    text-transform: uppercase;
-    font-family: "Droid Sans Mono,monospace";
-    background-color: rgba(0, 0, 0, 0.095);
-    backdrop-filter: blur(15px);
-    height: 450px;
-    width: 600px;
-}
-
-#exitModalButton {
-    font-size: 25px;
-    color: white;
-    border: solid 2px #0195ff;
-    border-radius: 15px;
-    width: 280px;
-    background-color: rgba(255, 255, 255, 0.033);
-    backdrop-filter: blur(10px);
-}
-
-#exitModalButton:hover {
-    background-color: #0195ff;
-    box-shadow: white 1px 1px 10px;
-}
-
-.modal-body {
-    display: flex;
-    gap: 15px;
-}
-
-#coinBoxModal {
-    width: 150px;
-    height: 170px;
-    border-radius: 15px;
-    background-image: linear-gradient(to bottom, #35bcff, #013672);
-}
-
-#coinBoxModal img {
-    padding-top: 5px;
-    width: 40px;
-}
-
-#modalCoin {
-    height: 40px;
-    text-align: center;
-    vertical-align: middle;
-    margin: auto;
-    padding: auto;
-    display: inline-block;
-}
-
-#modalSwitch {
-    position: relative;
-    top: 40px;
-    left: 5px;
-    display: inline-block;
-    vertical-align: middle;
-    margin: auto;
-    padding: auto;
-}
-
-#cryptoRain {
-    margin-left: 15px;
-    font-size: 25px;
-    color: white;
-    border: solid 2px #00a2ff;
-    box-shadow: #fbfbfb 1px 1px 15px;
-    border-radius: 15px;
-    width: 150px;
-    background-color: rgba(255, 255, 255, 0.033);
-    backdrop-filter: blur(10px);
-}
-
-#cryptoRain:hover {
-    color: white;
-    border: solid 2px #ffffff;
-    box-shadow: #fbfbfb 1px 1px 35px;
-    background-color: rgba(255, 255, 255, 0.033);
-}
-
-/* Container styles */
-.container {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-/* Falling coin animation */
-.bitcoin-coin {
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: fallingCoin 3s ease-in-out infinite;
-}
-
-@keyframes fallingCoin {
-    0% {
-        top: -100px;
-    }
-
-    100% {
-        top: calc(100% - 100px);
-    }
-}
 
 /* Chart container */
 #chartContainer {
