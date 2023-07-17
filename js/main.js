@@ -116,7 +116,14 @@ $(() => {
 
     // Pop up a modal when user reaches max coins (5 coins).
     if (selectedCoins.length === maxCoins) {
+<<<<<<< HEAD
       $("#maxCoinsModal").modal("show");
+=======
+      $(".loading").css("display", "block");
+      setTimeout(() => {
+        $("#maxCoinsModal").modal("show");
+      }, 10);
+>>>>>>> 2088684 (Loading animation)
       return;
     }
 
@@ -143,7 +150,13 @@ $(() => {
 <p>To add the "<b>${sixthCoin}</b>" coin, you must unselect another coin:</p>`;
             modalHeader.html(addSixthCoinToArray);
             checkbox.prop("checked", false);
+<<<<<<< HEAD
             $("#maxCoinsModal").modal("show");
+=======
+            setTimeout(() => {
+              $("#maxCoinsModal").modal("show");
+            }, 10);
+>>>>>>> 2088684 (Loading animation)
 
             // Add the coin to selectedCoins directly
             const coin = coins.find((c) => c.id === coinId);
@@ -163,6 +176,10 @@ $(() => {
 
     async function updateSelectedCoinsModal() {
       const modalBody = $("#maxCoinsModal .modal-body");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2088684 (Loading animation)
       modalBody.empty();
 
       const displayedCoins = selectedCoins.slice(0, 5);
@@ -219,7 +236,10 @@ $(() => {
               selectedCoins = selectedCoins.filter(
                 (coin) => coin.id !== coinId
               );
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2088684 (Loading animation)
               $(`#slider_${coinId}`).prop("checked", false);
               updateSelectedCoinsModal();
               $("#maxCoinsModal").modal("hide");
@@ -233,6 +253,11 @@ $(() => {
           );
           // Handle the error, show an error message, or perform any necessary actions
         }
+<<<<<<< HEAD
+=======
+        $(".loading").css("display", "none");
+        // Hide the loading indicator once the coins are loaded
+>>>>>>> 2088684 (Loading animation)
       }
 
       $("#coinsSelected").html("");
@@ -295,6 +320,7 @@ $(() => {
       $("#chartMessage").html(
         `<div class="noData"> <h2>Please select coins to display on the graph!</h2> </div>`
       );
+<<<<<<< HEAD
       
     } else {
         $("#chartMessage").html("");
@@ -304,6 +330,16 @@ $(() => {
     //        <h2>Loading...</h2>
     //          </div>`
     //   );
+=======
+    } else {
+      $("#chartMessage").html("");
+      $(".loading").css("display", "block");
+      //   $("#chartMessage").html(
+      //     `<div class="noData">
+      //        <h2>Loading...</h2>
+      //          </div>`
+      //   );
+>>>>>>> 2088684 (Loading animation)
       let coinOne = [];
       let coinTwo = [];
       let coinThree = [];
@@ -480,15 +516,23 @@ $(() => {
   async function handleMoreInfo(coinId) {
     const localStorageKey = "coin_" + coinId;
     const storedData = localStorage.getItem(localStorageKey);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 2088684 (Loading animation)
     // Check if there is stored data already and if it's not expired
     if (storedData) {
       const data = JSON.parse(storedData);
       const currentTime = new Date().getTime();
       if (currentTime - data.timestamp < 120000 /* 2 minutes */) {
+<<<<<<< HEAD
         console.log(
           "The Data Already Existed in LocalStorage - No Api Call Needed"
         );
+=======
+        console.log("The Data Already Existed in LocalStorage - No Api Call Needed");
+>>>>>>> 2088684 (Loading animation)
         const { imageSource, usd, eur, ils } = data;
         const moreInfo = `
           <img src="${imageSource}"><br>
@@ -496,6 +540,7 @@ $(() => {
           USD: €${eur} <br>
           USD: ₪${ils} <br>
         `;
+<<<<<<< HEAD
         $(`#collapse_${coinId}`).html(moreInfo);
         return;
       }
@@ -506,6 +551,22 @@ $(() => {
       const coin = await getJson(
         "https://api.coingecko.com/api/v3/coins/" + coinId
       );
+=======
+  
+        $(`#collapse_${coinId}`).html(moreInfo);
+  
+        return;
+      }
+    }
+  
+    // Show the loading animation
+    $(".loading").css("display", "block");
+  
+    // API call for the coin info
+    try {
+      const coin = await getJson("https://api.coingecko.com/api/v3/coins/" + coinId);
+  
+>>>>>>> 2088684 (Loading animation)
       console.log("New Api Request - This Is New Data");
       const imageSource = coin.image.small;
       const usd = coin.market_data.current_price.usd;
@@ -518,7 +579,11 @@ $(() => {
         USD: ₪${ils} <br>
       `;
       $(`#collapse_${coinId}`).html(moreInfo);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 2088684 (Loading animation)
       // Store the updated data in local storage
       const newData = {
         imageSource,
@@ -531,6 +596,15 @@ $(() => {
     } catch (error) {
       console.error("Error occurred while fetching coin data:", error);
       // Handle the error, show an error message, or perform any necessary actions
+<<<<<<< HEAD
     }
   }
+=======
+    } finally {
+      // Hide the loading animation
+      $(".loading").css("display", "none");
+    }
+  }
+  
+>>>>>>> 2088684 (Loading animation)
 });
