@@ -136,18 +136,14 @@ img {
 /* Loading animation */
 .loading {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transform: translateZ(1px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: none;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.095);
-    backdrop-filter: blur(15px);
     z-index: 9999;
-}
+  }
 
 #cryptoLoading {
     width: 128px;
@@ -330,24 +326,15 @@ input:checked+.slider:before {
 
 
 /* Chart container */
+
+#chartMessage{
+    color: white;
+    
+}
 #chartContainer {
     margin: auto;
     height: 500px;
-    width: 1500px;
-}
-
-@media (max-width: 768px) {
-    #chartContainer {
-        height: 400px;
-        width: 450px;
-    }
-         .waviy {
-             font-size: 30px;
-         }
-    
-         #logoImg {
-             width: 70px;
-         }
+    width: 90%;
 }
 
 @media (max-width: 1408px) {
@@ -359,18 +346,12 @@ input:checked+.slider:before {
         margin: auto;
     }
 
-        #chartContainer {
-            height: 500px;
-            width: 850px;
-        }
+
 }
 
 @media (max-width: 1000px) {
 
-    #chartContainer {
-            height: 500px;
-            width: 350px;
-        }
+
 
     #coinsContainer {
         width: 400px;
@@ -389,6 +370,20 @@ input:checked+.slider:before {
         width: 70px;
     }
 }
+
+@media (max-width: 768px) {
+
+         .waviy {
+             font-size: 30px;
+         }
+    
+         #logoImg {
+             width: 70px;
+         }
+}
+
+
+
 
 /* No data message */
 .noData {

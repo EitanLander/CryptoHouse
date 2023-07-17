@@ -40,24 +40,24 @@ $(() => {
   $("#homeLink").click(async () => await handleHome());
 
   async function handleHome() {
-    const coins = await getJson("https://api.coingecko.com/api/v3/coins/list");
+    const coins = await getJson("coins.json");
     displayCoins(coins);
 
     // Clear the selectedCoinIds from local storage
     localStorage.removeItem("selectedCoinIds");
     $("#coinsSelected").html("");
   }
-
   $("#searchInput").on("input", function () {
     const coinList = $("#coinsContainer");
     const cards = coinList.find(".card");
     const searchInput = $(this);
     const filter = searchInput.val().toLowerCase();
-  
-    for (let i = 0; i < cards.length; i++) {
+    const cardsLength = cards.length;
+
+    for (let i = 0; i < cardsLength; i++) {
       const item = $(cards[i]);
       const text = item.text().toLowerCase();
-  
+
       // Search filter by letter or full name
       if (text.includes(filter) || filter === "") {
         item.show();
@@ -72,7 +72,7 @@ $(() => {
     coins = coins.filter((c) => c.name.length <= 8);
     let html = "";
 
-    for (let i = 20; i < 110; i++) {
+    for (let i = 10; i < 110; i++) {
       html += createCoinCard(coins[i]);
     }
     $("#coinsContainer").html(html);
@@ -109,55 +109,55 @@ $(() => {
         `;
     }
 
-   // Creating The Selected Coins By An Array:
-let selectedCoins = [];
+    // Creating The Selected Coins By An Array:
+    let selectedCoins = [];
 
-const maxCoins = 5;
+    const maxCoins = 5;
 
-// Pop up a modal when user reaches max coins (5 coins).
-if (selectedCoins.length === maxCoins) {
-  $("#maxCoinsModal").modal("show");
-  return;
-}
-
-for (let i = 0; i < coins.length; i++) {
-  const checkbox = $(`#slider_${coins[i].id}`);
-
-  checkbox.on("change", () => {
-    const isChecked = checkbox.prop("checked");
-    const coinId = checkbox.attr("id").substring(7);
-
-    // Remove the duplicated code block from here
-
-    if (isChecked) {
-      if (selectedCoins.length < maxCoins) {
-        // Add the coin to selectedCoins directly
-        const coin = coins.find((c) => c.id === coinId);
-        if (!selectedCoins.some((c) => c.id === coinId)) {
-          selectedCoins.push(coin);
-        }
-      } else {
-        const modalHeader = $("#sixthCoin");
-        const sixthCoin = coinId;
-        const addSixthCoinToArray = `
-<p>To add the "<b>${sixthCoin}</b>" coin, you must unselect another coin:</p>`;
-        modalHeader.html(addSixthCoinToArray);
-        checkbox.prop("checked", false);
-        $("#maxCoinsModal").modal("show");
-
-        // Add the coin to selectedCoins directly
-        const coin = coins.find((c) => c.id === coinId);
-        if (!selectedCoins.some((c) => c.id === coinId)) {
-          selectedCoins.push(coin);
-        }
-      }
-    } else {
-      selectedCoins = selectedCoins.filter((c) => c.id !== coinId);
+    // Pop up a modal when user reaches max coins (5 coins).
+    if (selectedCoins.length === maxCoins) {
+      $("#maxCoinsModal").modal("show");
+      return;
     }
 
-    updateSelectedCoinsModal();
-  });
-}
+    for (let i = 0; i < coins.length; i++) {
+      const checkbox = $(`#slider_${coins[i].id}`);
+
+      checkbox.on("change", () => {
+        const isChecked = checkbox.prop("checked");
+        const coinId = checkbox.attr("id").substring(7);
+
+        // Remove the duplicated code block from here
+
+        if (isChecked) {
+          if (selectedCoins.length < maxCoins) {
+            // Add the coin to selectedCoins directly
+            const coin = coins.find((c) => c.id === coinId);
+            if (!selectedCoins.some((c) => c.id === coinId)) {
+              selectedCoins.push(coin);
+            }
+          } else {
+            const modalHeader = $("#sixthCoin");
+            const sixthCoin = coinId;
+            const addSixthCoinToArray = `
+<p>To add the "<b>${sixthCoin}</b>" coin, you must unselect another coin:</p>`;
+            modalHeader.html(addSixthCoinToArray);
+            checkbox.prop("checked", false);
+            $("#maxCoinsModal").modal("show");
+
+            // Add the coin to selectedCoins directly
+            const coin = coins.find((c) => c.id === coinId);
+            if (!selectedCoins.some((c) => c.id === coinId)) {
+              selectedCoins.push(coin);
+            }
+          }
+        } else {
+          selectedCoins = selectedCoins.filter((c) => c.id !== coinId);
+        }
+
+        updateSelectedCoinsModal();
+      });
+    }
 
     // Create the the modal with coins and sliders:
 
@@ -172,49 +172,67 @@ for (let i = 0; i < coins.length; i++) {
         const coinCheckbox = $(`#slider_${coin.id}`);
         coinCheckbox.prop("checked", true);
 
-        // Get image source from API
-        const coinId = coin.id;
-        const coinData = await getJson(
-          "https://api.coingecko.com/api/v3/coins/" + coinId
-        );
-        const imageSource = coinData.image.small;
+        try {
+          const coinInfo = await $.getJSON(
+            "https://api.coingecko.com/api/v3/coins/" + coin.id
+          );
 
-        // Modal content
-        const coinInfo = `
-      <div id="coinBoxModal">
-        <div id="coinName">
-          <img src="${imageSource}" alt="${coin.name} logo">
-          <p id="modalCoin" class="card-title">${coin.name} (${coin.symbol})</p>
-          </div>
-        <div id="slider">
-          <label id="modalSwitch" class="switch">
-            <input class="unselect-slider" type="checkbox" id="inlineCheckbox_${i}" data-coin-id="${coin.id}" checked>
-            <span class="slider round"></span>
-          </label>
-        </div>
-      </div>
-    `;
+          const imageSource = coinInfo.image.small;
 
-        modalBody.append(coinInfo);
+          const coinBoxModal = $("<div>").attr("id", "coinBoxModal");
+          const coinName = $("<div>").attr("id", "coinName");
+          const coinLogo = $("<img>")
+            .attr("src", imageSource)
+            .attr("alt", `${coin.name} logo`);
+          const coinTitle = $("<p>")
+            .attr("id", "modalCoin")
+            .addClass("card-title")
+            .text(`${coin.name} (${coin.symbol})`);
+          coinName.append(coinLogo, coinTitle);
 
-        // When user unselects a coin, it is unchecked
-        const unselectSlider = modalBody.find(
-          `.unselect-slider[data-coin-id="${coin.id}"]`
-        );
-        unselectSlider.on("change", function () {
-          const isChecked = $(this).prop("checked");
-          const coinId = $(this).data("coin-id");
+          const coinSlider = $("<div>").attr("id", "slider");
+          const modalSwitch = $("<label>")
+            .attr("id", "modalSwitch")
+            .addClass("switch");
+          const checkbox = $("<input>")
+            .addClass("unselect-slider")
+            .attr("type", "checkbox")
+            .attr("id", `inlineCheckbox_${i}`)
+            .attr("data-coin-id", coin.id)
+            .prop("checked", true);
+          const sliderSpan = $("<span>").addClass("slider round");
+          modalSwitch.append(checkbox, sliderSpan);
+          coinSlider.append(modalSwitch);
 
-          if (!isChecked) {
-            // Remove the unselected coin from the array
-            selectedCoins = selectedCoins.filter((coin) => coin.id !== coinId);
+          coinBoxModal.append(coinName, coinSlider);
 
-            $(`#slider_${coinId}`).prop("checked", false);
-            updateSelectedCoinsModal();
-            $("#maxCoinsModal").modal("hide");
-            console.log(selectedCoins);
-          }
-        });
+          modalBody.append(coinBoxModal);
+
+          const unselectSlider = modalBody.find(
+            `.unselect-slider[data-coin-id="${coin.id}"]`
+          );
+          unselectSlider.on("change", function () {
+            const isChecked = $(this).prop("checked");
+            const coinId = $(this).data("coin-id");
+
+            if (!isChecked) {
+              selectedCoins = selectedCoins.filter(
+                (coin) => coin.id !== coinId
+              );
+
+              $(`#slider_${coinId}`).prop("checked", false);
+              updateSelectedCoinsModal();
+              $("#maxCoinsModal").modal("hide");
+              console.log(selectedCoins);
+            }
+          });
+        } catch (error) {
+          console.error(
+            "Error occurred while fetching coin information:",
+            error
+          );
+          // Handle the error, show an error message, or perform any necessary actions
+        }
       }
 
       $("#coinsSelected").html("");
@@ -277,12 +295,15 @@ for (let i = 0; i < coins.length; i++) {
       $("#chartMessage").html(
         `<div class="noData"> <h2>Please select coins to display on the graph!</h2> </div>`
       );
+      
     } else {
-      $("#chartMessage").html(
-        `<div class="noData"> 
-           <h2>Loading...</h2>
-             </div>`
-      );
+        $("#chartMessage").html("");
+            $(".loading").css("display", "block");
+    //   $("#chartMessage").html(
+    //     `<div class="noData"> 
+    //        <h2>Loading...</h2>
+    //          </div>`
+    //   );
       let coinOne = [];
       let coinTwo = [];
       let coinThree = [];
@@ -291,6 +312,7 @@ for (let i = 0; i < coins.length; i++) {
       let coinName = [];
 
       function getData(event) {
+        $(".loading").css("display", "none");
         const coinsSelected = selectedCoinIds.slice(0, 5);
         $.ajax({
           type: "GET",
@@ -358,7 +380,7 @@ for (let i = 0; i < coins.length; i++) {
           theme: "light2",
 
           title: {
-            text: "Real-time Price of Selected CryptoCurrencies in $USD",
+            text: "Live $US Dollar Rates for Handpicked Cryptocurrencies",
           },
           axisX: {
             valueFormatString: "HH:mm:ss",
@@ -366,7 +388,7 @@ for (let i = 0; i < coins.length; i++) {
           axisY: {
             title: "Coin Value",
             suffix: "$",
-            titleFontColor: "#4F81BC",
+            titleFontColor: "#5F81BC",
             lineColor: "#00A0FF",
             labelFontColor: "#4F81BC",
             tickColor: "#4F81BC",
@@ -454,16 +476,19 @@ for (let i = 0; i < coins.length; i++) {
       });
     });
   }
-  
+
   async function handleMoreInfo(coinId) {
     const localStorageKey = "coin_" + coinId;
     const storedData = localStorage.getItem(localStorageKey);
-  
+
     // Check if there is stored data already and if it's not expired
     if (storedData) {
       const data = JSON.parse(storedData);
       const currentTime = new Date().getTime();
-      if (currentTime - data.timestamp < 120000 /* 2 Minutes */) {
+      if (currentTime - data.timestamp < 120000 /* 2 minutes */) {
+        console.log(
+          "The Data Already Existed in LocalStorage - No Api Call Needed"
+        );
         const { imageSource, usd, eur, ils } = data;
         const moreInfo = `
           <img src="${imageSource}"><br>
@@ -475,12 +500,13 @@ for (let i = 0; i < coins.length; i++) {
         return;
       }
     }
-  
-    // API for the coins info:
+
+    // API call for the coin info
     try {
       const coin = await getJson(
         "https://api.coingecko.com/api/v3/coins/" + coinId
       );
+      console.log("New Api Request - This Is New Data");
       const imageSource = coin.image.small;
       const usd = coin.market_data.current_price.usd;
       const eur = coin.market_data.current_price.eur;
@@ -492,7 +518,7 @@ for (let i = 0; i < coins.length; i++) {
         USD: ₪${ils} <br>
       `;
       $(`#collapse_${coinId}`).html(moreInfo);
-  
+
       // Store the updated data in local storage
       const newData = {
         imageSource,
@@ -507,5 +533,4 @@ for (let i = 0; i < coins.length; i++) {
       // Handle the error, show an error message, or perform any necessary actions
     }
   }
-
 });
