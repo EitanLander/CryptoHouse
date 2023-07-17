@@ -1,65 +1,64 @@
-
 /* Modal styles */
 .modal-content {
-    text-align: center;
-    display: inline-block;
-    color: white;
-    border: solid 2px #0195ff30;
-    text-transform: uppercase;
-    font-family: "Droid Sans Mono,monospace";
-    background-color: rgba(0, 0, 0, 0.095);
-    backdrop-filter: blur(15px);
-    height: 450px;
-    width: 600px;
+  text-align: center;
+  display: inline-block;
+  color: white;
+  border: solid 2px #0195ff30;
+  text-transform: uppercase;
+  font-family: "Droid Sans Mono,monospace";
+  background-color: rgba(0, 0, 0, 0.095);
+  backdrop-filter: blur(15px);
+  height: 450px;
+  width: 600px;
 }
 
 #exitModalButton {
-    font-size: 25px;
-    color: white;
-    border: solid 2px #0195ff;
-    border-radius: 15px;
-    width: 280px;
-    background-color: rgba(255, 255, 255, 0.033);
-    backdrop-filter: blur(10px);
+  font-size: 25px;
+  color: white;
+  border: solid 2px #0195ff;
+  border-radius: 15px;
+  width: 280px;
+  background-color: rgba(255, 255, 255, 0.033);
+  backdrop-filter: blur(10px);
 }
 
 #exitModalButton:hover {
-    background-color: #0195ff;
-    box-shadow: white 1px 1px 10px;
+  background-color: #0195ff;
+  box-shadow: white 1px 1px 10px;
 }
 
 .modal-body {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 #coinBoxModal {
-    width: 150px;
-    height: 170px;
-    border-radius: 15px;
-    background-image: linear-gradient(to bottom, #35bcff, #013672);
+  width: 150px;
+  height: 170px;
+  border-radius: 15px;
+  background-image: linear-gradient(to bottom, #35bcff, #013672);
 }
 
 #coinBoxModal img {
-    padding-top: 5px;
-    width: 40px;
+  padding-top: 5px;
+  width: 40px;
 }
 
 #modalCoin {
-    height: 40px;
-    text-align: center;
-    vertical-align: middle;
-    margin: auto;
-    padding: auto;
-    display: inline-block;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  margin: auto;
+  padding: auto;
+  display: inline-block;
 }
 
 #modalSwitch {
-    position: relative;
-    top: 40px;
-    left: 5px;
-    display: inline-block;
-    vertical-align: middle;
-    margin: auto;
-    padding: auto;
+  position: relative;
+  top: 40px;
+  left: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: auto;
+  padding: auto;
 }

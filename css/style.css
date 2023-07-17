@@ -1,0 +1,395 @@
+/* Global styles */
+@font-face {
+    font-family: "myFont";
+    src: url(/assets/fonts/myfont.otf);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Body styles */
+body {
+    font-weight: 500;
+    font-family: Tahoma;
+    background-image: url(/assets/images/5166950.jpg);
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body::-webkit-scrollbar {
+    width: 15px;
+    background: #163468;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: linear-gradient(25deg, #168bff 55%, #01185e);
+    border-radius: 7px;
+}
+
+/* Logo styles */
+#logoImg {
+    width: 80px;
+}
+
+/* Waviy animation */
+.waviy {
+    position: relative;
+    font-size: 60px;
+    font-family: "myFont";
+    text-align: center;
+}
+
+.waviy span {
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    text-transform: uppercase;
+    animation: waviy 3s infinite;
+    animation-delay: calc(.1s * var(--i));
+}
+
+@keyframes waviy {
+
+    0%,
+    40%,
+    100% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Header navigation */
+#headerNav {
+    display: flex;
+}
+
+.nav-link {
+    font-size: 20px;
+
+}
+
+.navbar-scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in-out;
+    z-index: 999;
+}
+
+.navbar-scrolled.visible {
+    transform: translateX(0);
+}
+
+
+
+/* Header styles */
+h3 {
+    text-align: center;
+    background-color: rgba(2, 5, 9, 0.567);
+    color: white;
+    font-size: 45px;
+}
+
+
+
+.navBarDesign{
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, #00aaff, #0077ff);
+}
+
+.nav-item{
+    margin-top: 5px;
+}
+
+/* Section styles */
+#homePage,
+#reportsSection,
+#aboutSection {
+    text-align: center;
+}
+
+/* Scroll top button */
+#scrollTop {
+    position: fixed;
+    top: 800px;
+    left: 15px;
+}
+
+#scrollTop,
+img {
+    width: 60px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+/* Loading animation */
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+#cryptoLoading {
+    width: 128px;
+}
+
+#smallCryptoLoading {
+    width: 50px;
+}
+
+.loading>div {
+    display: inline-block;
+    width: 128px;
+    height: 128px;
+    margin: 16px;
+    border-radius: 50%;
+    animation: lds-circle 5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes lds-circle {
+
+    0%,
+    100% {
+        animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(1800deg);
+        animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+    }
+
+    100% {
+        transform: rotateY(3600deg);
+    }
+}
+
+/* Coins container */
+#coinsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+    margin: auto;
+}
+
+/* Card styles */
+.card {
+    margin: 5px;
+    text-align: center;
+    display: inline-block;
+    color: white;
+    border: solid 2px #0195ff20;
+    text-transform: uppercase;
+    font-family: "Droid Sans Mono,monospace";
+    background-color: rgba(255, 255, 255, 0.066);
+    backdrop-filter: blur(5px);
+    width: 15rem;
+    height: 18rem;
+    overflow: hidden;
+}
+
+#playMusic {
+    margin-left: 15px;
+    font-size: 25px;
+    color: white;
+    border: solid 2px #00a2ff;
+    box-shadow: #fbfbfb 1px 1px 15px;
+    border-radius: 15px;
+    width: 150px;
+    background-color: rgba(255, 255, 255, 0.033);
+    backdrop-filter: blur(10px);
+}
+
+
+/* Coin more info */
+#coinMoreInfo {
+    padding: 5px;
+    min-height: 120px;
+}
+
+/* Banner title */
+#bannerTitle {
+    position: absolute;
+    font-size: 120px;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Hidden sections */
+#reportsSection,
+#aboutSection,
+#homeSection{
+    display: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+/* Switch styles */
+.switch {
+    position: absolute;
+    right: 15px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+}
+
+input:checked+.slider {
+    background-color: #2196f3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Selected coins */
+.selectedCoins {
+    font-size: 20px;
+    color: white;
+    text-transform: uppercase;
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.icon {
+    width: 25px;
+}
+
+
+
+/* Chart container */
+
+#chartMessage{
+    color: white;
+    
+}
+#chartContainer {
+    margin: auto;
+    height: 500px;
+    width: 90%;
+}
+
+@media (max-width: 1408px) {
+    #coinsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 1000px;
+        margin: auto;
+    }
+
+
+}
+
+@media (max-width: 1000px) {
+
+
+
+    #coinsContainer {
+        width: 400px;
+    }
+
+    .card {
+        width: 200px;
+        margin: 0;
+    }
+
+    .waviy {
+        font-size: 50px;
+    }
+
+    #logoImg {
+        width: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+
+         .waviy {
+             font-size: 30px;
+         }
+    
+         #logoImg {
+             width: 70px;
+         }
+}
+
+
+
+
+/* No data message */
+.noData {
+    color: white;
+}

@@ -1,46 +1,46 @@
 #cryptoRain {
-    margin-left: 15px;
-    font-size: 25px;
-    color: white;
-    border: solid 2px #00a2ff;
-    box-shadow: #fbfbfb 1px 1px 15px;
-    border-radius: 15px;
-    width: 150px;
-    background-color: rgba(255, 255, 255, 0.033);
-    backdrop-filter: blur(10px);
+  margin-left: 15px;
+  font-size: 25px;
+  color: white;
+  border: solid 2px #00a2ff;
+  box-shadow: #fbfbfb 1px 1px 15px;
+  border-radius: 15px;
+  width: 150px;
+  background-color: rgba(255, 255, 255, 0.033);
+  backdrop-filter: blur(10px);
 }
 
 #cryptoRain:hover {
-    color: white;
-    border: solid 2px #ffffff;
-    box-shadow: #fbfbfb 1px 1px 35px;
-    background-color: rgba(255, 255, 255, 0.033);
+  color: white;
+  border: solid 2px #ffffff;
+  box-shadow: #fbfbfb 1px 1px 35px;
+  background-color: rgba(255, 255, 255, 0.033);
 }
 
 /* Container styles */
 .container {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Falling coin animation */
 .bitcoin-coin {
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: fallingCoin 3s ease-in-out infinite;
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fallingCoin 3s ease-in-out infinite;
 }
 
 @keyframes fallingCoin {
-    0% {
-        top: -100px;
-    }
+  0% {
+    top: -100px;
+  }
 
-    100% {
-        top: calc(100% - 100px);
-    }
+  100% {
+    top: calc(100% - 100px);
+  }
 }

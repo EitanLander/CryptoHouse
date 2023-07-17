@@ -516,23 +516,13 @@ $(() => {
   async function handleMoreInfo(coinId) {
     const localStorageKey = "coin_" + coinId;
     const storedData = localStorage.getItem(localStorageKey);
-<<<<<<< HEAD
-
-=======
   
->>>>>>> 2088684 (Loading animation)
     // Check if there is stored data already and if it's not expired
     if (storedData) {
       const data = JSON.parse(storedData);
       const currentTime = new Date().getTime();
       if (currentTime - data.timestamp < 120000 /* 2 minutes */) {
-<<<<<<< HEAD
-        console.log(
-          "The Data Already Existed in LocalStorage - No Api Call Needed"
-        );
-=======
         console.log("The Data Already Existed in LocalStorage - No Api Call Needed");
->>>>>>> 2088684 (Loading animation)
         const { imageSource, usd, eur, ils } = data;
         const moreInfo = `
           <img src="${imageSource}"><br>
@@ -540,33 +530,20 @@ $(() => {
           USD: €${eur} <br>
           USD: ₪${ils} <br>
         `;
-<<<<<<< HEAD
+  
         $(`#collapse_${coinId}`).html(moreInfo);
+
         return;
       }
     }
 
-    // API call for the coin info
-    try {
-      const coin = await getJson(
-        "https://api.coingecko.com/api/v3/coins/" + coinId
-      );
-=======
-  
-        $(`#collapse_${coinId}`).html(moreInfo);
-  
-        return;
-      }
-    }
-  
     // Show the loading animation
     $(".loading").css("display", "block");
-  
+
     // API call for the coin info
     try {
       const coin = await getJson("https://api.coingecko.com/api/v3/coins/" + coinId);
   
->>>>>>> 2088684 (Loading animation)
       console.log("New Api Request - This Is New Data");
       const imageSource = coin.image.small;
       const usd = coin.market_data.current_price.usd;
@@ -579,11 +556,7 @@ $(() => {
         USD: ₪${ils} <br>
       `;
       $(`#collapse_${coinId}`).html(moreInfo);
-<<<<<<< HEAD
-
-=======
   
->>>>>>> 2088684 (Loading animation)
       // Store the updated data in local storage
       const newData = {
         imageSource,
@@ -606,5 +579,4 @@ $(() => {
     }
   }
   
->>>>>>> 2088684 (Loading animation)
 });

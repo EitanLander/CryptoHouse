@@ -21,20 +21,23 @@
 
 - ## Coin Selection:
 
- Users can toggle the coins they are interested in, with a limit of 5 coins.
+Users can toggle the coins they are interested in, with a limit of 5 coins.
+
 - ## Expanded Information:
 
- Each coin card displays additional information that can be expanded or collapsed.
+Each coin card displays additional information that can be expanded or collapsed.
+
 - ## Real-Time Reports:
 
- Live reports of selected cryptocurrencies are displayed in a graph format.
+Live reports of selected cryptocurrencies are displayed in a graph format.
+
 - ## Search Capability:
 
- Users can search for specific coin names.
+Users can search for specific coin names.
+
 - ## Crypto News:
 
- The application fetches and displays real-time news about cryptocurrencies.
-
+The application fetches and displays real-time news about cryptocurrencies.
 
 ## Design and Styling
 
@@ -56,7 +59,6 @@ The project incorporates visually appealing design and CSS styles, leveraging th
 - AJAX: Technique used to fetch data from the CoinGecko API for real-time updates.
 - CanvasJS: JavaScript charting library used to create dynamic graphs for cryptocurrency reports.
 
-
 ## Installation and Usage
 
 To use the CryptoHouse web application, follow these steps:
@@ -73,13 +75,13 @@ To use the CryptoHouse web application, follow these steps:
 
 ## Credits
 
-* Bootstrap: https://getbootstrap.com/
-* CoinGecko API: https://www.coingecko.com/
-* CanvasJS: https://canvasjs.com/
+- Bootstrap: https://getbootstrap.com/
+- CoinGecko API: https://www.coingecko.com/
+- CanvasJS: https://canvasjs.com/
 
 ## Acknowledgments
 
-* The CoinGecko API: The project utilizes the CoinGecko API to fetch real-time cryptocurrency data and news.
+- The CoinGecko API: The project utilizes the CoinGecko API to fetch real-time cryptocurrency data and news.
 
 ## About the Developer
 
