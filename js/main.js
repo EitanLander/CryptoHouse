@@ -3,13 +3,9 @@
 "use strict";
 
 $(() => {
-  function scrollToTop() {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-  }
-
   // Scroll to top when the "Scroll Up" link is clicked
   $("#scrollTop").click(() => {
-    scrollToTop();
+    $("html, body").animate({ scrollTop: 0 }, "slow");
   });
 
   // Toggle the "Scroll Up" link visibility based on scroll position
@@ -40,7 +36,7 @@ $(() => {
   $("#homeLink").click(async () => await handleHome());
 
   async function handleHome() {
-    const coins = await getJson("coins.json");
+    const coins = await getJson("coins.json"); // https://api.coingecko.com/api/v3/coins/list
     displayCoins(coins);
 
     // Clear the selectedCoinIds from local storage
@@ -101,7 +97,6 @@ $(() => {
               </button>
               <div id="coinMoreInfo">
                 <div class="collapse collapse-vertical" id="collapse_${coin.id}">
-                  <div class="card card-body"></div>
                 </div>
               </div>
             </div>
@@ -230,7 +225,6 @@ $(() => {
                 $(`#slider_${coinId}`).prop("checked", false);
                 updateSelectedCoinsModal();
                 $("#maxCoinsModal").modal("hide");
-                console.log(selectedCoins);
               }
             });
             
