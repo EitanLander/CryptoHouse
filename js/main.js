@@ -96,8 +96,8 @@ $(() => {
               </label>
               <h5 class="card-title">${coin.symbol}</h5>
               <p class="card-text">${coin.name}</p>
-              <button id="button_${coin.id}" class="btn btn-primary more-info" data-bs-toggle="collapse" data-bs-target="#collapse_${coin.id}">
-                Coin Info
+              <button id="button_${coin.id}" class="button-92 btn btn-primary more-info coin-button" data-bs-toggle="collapse" role="button" data-bs-target="#collapse_${coin.id}">
+              Coin Info
               </button>
               <div id="coinMoreInfo">
                 <div class="collapse collapse-vertical" id="collapse_${coin.id}">
@@ -159,92 +159,107 @@ $(() => {
       });
     }
 
-    // Create the the modal with coins and sliders:
-
     async function updateSelectedCoinsModal() {
-      const modalBody = $("#maxCoinsModal .modal-body");
-      modalBody.empty();
+        const modalBody = $("#maxCoinsModal .modal-body");
+        modalBody.empty();
+      
+        const displayedCoins = selectedCoins.slice(0, 5);
+        
+      // Display a success toast message
+      Toastify({
+        text: "✔ Coin added to your watchlist ",
+        className: "success",
+        style: {
+          background: "linear-gradient(to right, #0084FF, #1DB3FF)",
+        },
+      }).showToast();
 
-      const displayedCoins = selectedCoins.slice(0, 5);
-
-      for (let i = 0; i < displayedCoins.length; i++) {
-        const coin = displayedCoins[i];
-        const coinCheckbox = $(`#slider_${coin.id}`);
-        coinCheckbox.prop("checked", true);
-
-        try {
-          const coinInfo = await $.getJSON(
-            "https://api.coingecko.com/api/v3/coins/" + coin.id
-          );
-
-          const imageSource = coinInfo.image.small;
-
-          const coinBoxModal = $("<div>").attr("id", "coinBoxModal");
-          const coinName = $("<div>").attr("id", "coinName");
-          const coinLogo = $("<img>")
-            .attr("src", imageSource)
-            .attr("alt", `${coin.name} logo`);
-          const coinTitle = $("<p>")
-            .attr("id", "modalCoin")
-            .addClass("card-title")
-            .text(`${coin.name} (${coin.symbol})`);
-          coinName.append(coinLogo, coinTitle);
-
-          const coinSlider = $("<div>").attr("id", "slider");
-          const modalSwitch = $("<label>")
-            .attr("id", "modalSwitch")
-            .addClass("switch");
-          const checkbox = $("<input>")
-            .addClass("unselect-slider")
-            .attr("type", "checkbox")
-            .attr("id", `inlineCheckbox_${i}`)
-            .attr("data-coin-id", coin.id)
-            .prop("checked", true);
-          const sliderSpan = $("<span>").addClass("slider round");
-          modalSwitch.append(checkbox, sliderSpan);
-          coinSlider.append(modalSwitch);
-
-          coinBoxModal.append(coinName, coinSlider);
-
-          modalBody.append(coinBoxModal);
-
-          const unselectSlider = modalBody.find(
-            `.unselect-slider[data-coin-id="${coin.id}"]`
-          );
-          unselectSlider.on("change", function () {
-            const isChecked = $(this).prop("checked");
-            const coinId = $(this).data("coin-id");
-
-            if (!isChecked) {
-              selectedCoins = selectedCoins.filter(
-                (coin) => coin.id !== coinId
-              );
-
-              $(`#slider_${coinId}`).prop("checked", false);
-              updateSelectedCoinsModal();
-              $("#maxCoinsModal").modal("hide");
-              console.log(selectedCoins);
-            }
-          });
+        for (let i = 0; i < displayedCoins.length; i++) {
+          const coin = displayedCoins[i];
+          const coinCheckbox = $(`#slider_${coin.id}`);
+          coinCheckbox.prop("checked", true);
+      
+          try {
+            const coinInfo = await $.getJSON(
+              "https://api.coingecko.com/api/v3/coins/" + coin.id
+            );
+      
+            const imageSource = coinInfo.image.small;
+      
+            const coinBoxModal = $("<div>").attr("id", "coinBoxModal");
+            const coinName = $("<div>").attr("id", "coinName");
+            const coinLogo = $("<img>")
+              .attr("src", imageSource)
+              .attr("alt", `${coin.name} logo`);
+            const coinTitle = $("<p>")
+              .attr("id", "modalCoin")
+              .addClass("card-title")
+              .text(`${coin.name} (${coin.symbol})`);
+            coinName.append(coinLogo, coinTitle);
+      
+            const coinSlider = $("<div>").attr("id", "slider");
+            const modalSwitch = $("<label>")
+              .attr("id", "modalSwitch")
+              .addClass("switch");
+            const checkbox = $("<input>")
+              .addClass("unselect-slider")
+              .attr("type", "checkbox")
+              .attr("id", `inlineCheckbox_${i}`)
+              .attr("data-coin-id", coin.id)
+              .prop("checked", true);
+            const sliderSpan = $("<span>").addClass("slider round");
+            modalSwitch.append(checkbox, sliderSpan);
+            coinSlider.append(modalSwitch);
+      
+            coinBoxModal.append(coinName, coinSlider);
+      
+            modalBody.append(coinBoxModal);
+      
+            const unselectSlider = modalBody.find(
+              `.unselect-slider[data-coin-id="${coin.id}"]`
+            );
+            unselectSlider.on("change", function () {
+              const isChecked = $(this).prop("checked");
+              const coinId = $(this).data("coin-id");
+      
+              if (!isChecked) {
+                selectedCoins = selectedCoins.filter(
+                  (coin) => coin.id !== coinId
+                );
+      
+                $(`#slider_${coinId}`).prop("checked", false);
+                updateSelectedCoinsModal();
+                $("#maxCoinsModal").modal("hide");
+                console.log(selectedCoins);
+              }
+            });
+            
         } catch (error) {
-          console.error(
-            "Error occurred while fetching coin information:",
-            error
-          );
-          // Handle the error, show an error message, or perform any necessary actions
+            // Display an error toast message
+            const errorMessage = "Choose a coin already , go see the live reports 😉";
+            Toastify({
+              text: errorMessage,
+              className: "error",
+              style: {
+                background: "linear-gradient(to right, #ff0000, #f56c6c)",
+              },
+            }).showToast();
+          }
         }
-      }
+      
+        
+            
 
       $("#coinsSelected").html("");
 
       // Add only the symbols of selected coins to coinsSelected
-      $.each(selectedCoins, function (_, coin) {
+      for (const coin of selectedCoins) {
         const coinSymbol = coin.symbol;
         const coinSymbolElement = $("<span>")
           .addClass("selectedCoins")
           .text(coinSymbol + " | ");
         $("#coinsSelected").append(coinSymbolElement);
-      });
+      }
 
       // Create an array of selected coin IDs
       const selectedCoinIds = $.map(selectedCoins, function (coin) {
@@ -530,9 +545,16 @@ $(() => {
       };
       localStorage.setItem(localStorageKey, JSON.stringify(newData));
     } catch (error) {
-        console.error("Error occurred while fetching coin data:", error);
-        // Handle the error, show an error message, or perform any necessary actions
-      } finally {
+  // Display an error toast message
+  const errorMessage = "Please wait a moment before making another request. Avoid spamming the data.";
+  Toastify({
+    text: errorMessage,
+    className: "error",
+    style: {
+      background: "linear-gradient(to right, #ff0000, #f56c6c)",
+    },
+  }).showToast();
+} finally {
         // Hide the loading animation
         $(".loading").css("display","none");
       }
