@@ -30,7 +30,7 @@ $(() => {
 
   $("#coinsContainer").on("click", ".more-info", async function () {
     const coinId = $(this).attr("id").substring(7);
-    await handleMoreInfo(coinId);
+    await fetchCoinInfoAndUpdateView(coinId);
   });
 
   $("#homeLink").click(async () => await handleHome());
@@ -485,24 +485,22 @@ $(() => {
     });
   }
 
-  async function handleMoreInfo(coinId) {
-    const localStorageKey = "coin_" + coinId;
-    const storedData = localStorage.getItem(localStorageKey);
-
-    // Check if there is stored data already and if it's not expired
+  async function fetchCoinInfoAndUpdateView(coinId) {
+    const localDataKey = "coin_" + coinId;
+    const storedData = localStorage.getItem(localDataKey);
+  
+    // Check if the data exists , if not not passed 2 minutes
     if (storedData) {
       const data = JSON.parse(storedData);
       const currentTime = new Date().getTime();
       if (currentTime - data.timestamp < 120000 /* 2 minutes */) {
-        console.log(
-          "The Data Already Existed in LocalStorage - No Api Call Needed"
-        );
-        const { imageSource, usd, eur, ils } = data;
+        console.log("The Data Already Existed in LocalStorage - No API Call Needed");
+        const { imgSrc, usdPrice, eurPrice, ilsPrice } = data;
         const moreInfo = `
-          <img src="${imageSource}"><br>
-          USD: $${usd} <br>
-          EUR: €${eur} <br>
-          ILS: ₪${ils} <br>
+          <img src="${imgSrc}"><br>
+          USD: $${usdPrice} <br>
+          EUR: €${eurPrice} <br>
+          ILS: ₪${ilsPrice} <br>
         `;
         $(`#collapse_${coinId}`).html(moreInfo);
         return;
@@ -510,33 +508,32 @@ $(() => {
     }
     // Show the loading animation
     $(".loading").css("display", "block");
-    // API call for the coin info
+
+// Api call the coin information.
     try {
-      const coin = await getJson(
-        "https://api.coingecko.com/api/v3/coins/" + coinId
-      );
-      console.log("New Api Request - This Is New Data");
-      const imageSource = coin.image.small;
-      const usd = coin.market_data.current_price.usd;
-      const eur = coin.market_data.current_price.eur;
-      const ils = coin.market_data.current_price.ils;
+      const coinData = await getJson("https://api.coingecko.com/api/v3/coins/" + coinId);
+      console.log("New API Request - This Is New Data");
+      const imgSrc = coinData.image.small;
+      const usdPrice = coinData.market_data.current_price.usd;
+      const eurPrice = coinData.market_data.current_price.eur;
+      const ilsPrice = coinData.market_data.current_price.ils;
       const moreInfo = `
-        <img src="${imageSource}"><br>
-        USD: $${usd} <br>
-        EUR: €${eur} <br>
-        ILS: ₪${ils} <br>
+        <img src="${imgSrc}"><br>
+        USD: $${usdPrice} <br>
+        EUR: €${eurPrice} <br>
+        ILS: ₪${ilsPrice} <br>
       `;
       $(`#collapse_${coinId}`).html(moreInfo);
-
-      // Store the updated data in local storage
+  
+        // Store the coin data to local storage:
       const newData = {
-        imageSource,
-        usd,
-        eur,
-        ils,
+        imgSrc,
+        usdPrice,
+        eurPrice,
+        ilsPrice,
         timestamp: new Date().getTime(),
       };
-      localStorage.setItem(localStorageKey, JSON.stringify(newData));
+      localStorage.setItem(localDataKey, JSON.stringify(newData));
     } catch (error) {
       // Display an error toast message
       const errorMessage =
@@ -553,4 +550,5 @@ $(() => {
       $(".loading").css("display", "none");
     }
   }
+  
 });
