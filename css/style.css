@@ -202,7 +202,7 @@ img {
     text-transform: uppercase;
     font-family: "Droid Sans Mono,monospace";
     background-color: rgba(255, 255, 255, 0.066);
-    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.254);
     width: 15rem;
     height: 18rem;
     transition: transform 0.3s;
