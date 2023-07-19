@@ -3,6 +3,32 @@
 "use strict";
 
 $(() => {
+
+    // Function to display Toastify messages with different configurations
+  function showToast(message, messageType) {
+    let className, background;
+
+    if (messageType === "success") {
+      className = "success";
+      background = "linear-gradient(to right, #0084FF, #1DB3FF)";
+    } else if (messageType === "error") {
+      className = "error";
+      background = "linear-gradient(to right, #ff0000, #f56c6c)";
+    } else if (messageType === "update") {
+        className = "update";
+      background = "linear-gradient(to right, #51c400, #2a890d)";
+    }
+
+    Toastify({
+      text: message,
+      className: className,
+      style: {
+        background: background,
+      },
+    }).showToast();
+  }
+
+
   // Scroll to top when the "Scroll Up" link is clicked
   $("#scrollTop").click(() => {
     $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -36,13 +62,14 @@ $(() => {
   $("#homeLink").click(async () => await handleHome());
 
   async function handleHome() {
-    const coins = await getJson("coins.json"); // https://api.coingecko.com/api/v3/coins/list
+    const coins = await getJson("https://api.coingecko.com/api/v3/coins/list"); //
     displayCoins(coins);
 
     // Clear the selectedCoinIds from local storage
     localStorage.removeItem("selectedCoinIds");
     $("#coinsSelected").html("");
   }
+
   $("#searchInput").on("input", function () {
     const coinList = $("#coinsContainer");
     const cards = coinList.find(".card");
@@ -63,24 +90,18 @@ $(() => {
     }
   });
 
+  
+
   // Displaying Crypto Coins and adding them to the Page
   function displayCoins(coins) {
     coins = coins.filter((c) => c.name.length <= 8);
     let html = "";
+    const coinList = $("#coinsContainer"); // Cache the coins container element
 
     for (let i = 10; i < 110; i++) {
       html += createCoinCard(coins[i]);
     }
-    $("#coinsContainer").html(html);
-
-    // If User Decided To Leave 5 Coin , Remove the Sixth from the Array.
-    $("#exitModalButton").on("click", function () {
-      if (selectedCoins.length > maxCoins) {
-        selectedCoins.pop();
-        updateSelectedCoinsModal();
-        $("#maxCoinsModal").modal("hide");
-      }
-    });
+    coinList.html(html); // Use the cached coins container element
 
     function createCoinCard(coin) {
       return `
@@ -109,6 +130,15 @@ $(() => {
     let selectedCoins = [];
     const maxCoins = 5;
 
+    // If User Decided To Leave 5 Coin , Remove the Sixth from the Array.
+  $("#exitModalButton").on("click", function () {
+    if (selectedCoins.length > maxCoins) {
+      selectedCoins.pop();
+      updateSelectedCoinsModal();
+      $("#maxCoinsModal").modal("hide");
+    }
+  });
+
     // Pop up a modal when user reaches max coins (5 coins).
     if (selectedCoins.length === maxCoins) {
       $("#maxCoinsModal").modal("show");
@@ -132,13 +162,7 @@ $(() => {
               selectedCoins.push(coin);
 
               // Display a success toast message
-              Toastify({
-                text: "✔ Coin added to your watchlist ",
-                className: "success",
-                style: {
-                  background: "linear-gradient(to right, #0084FF, #1DB3FF)",
-                },
-              }).showToast();
+             showToast("✔ Coin added to your watchlist", "success");
             }
           } else {
             const modalHeader = $("#sixthCoin");
@@ -157,7 +181,8 @@ $(() => {
           }
         } else {
           selectedCoins = selectedCoins.filter((c) => c.id !== coinId);
-        } updateSelectedCoinsModal();
+        }
+        updateSelectedCoinsModal();
       });
     }
 
@@ -172,75 +197,70 @@ $(() => {
         coinCheckbox.prop("checked", true);
 
         try {
-            const coinInfo = await $.getJSON("https://api.coingecko.com/api/v3/coins/" + coin.id);
-            const imageSource = coinInfo.image.small;
-            
-            const coinBoxModal = $("<div>")
-              .attr("id", "coinBoxModal")
-              .append(
-                $("<div>")
-                  .attr("id", "coinName")
-                  .append(
-                    $("<img>").attr("src", imageSource).attr("alt", `${coin.name} logo`),
-                    $("<p>")
-                      .attr("id", "modalCoin")
-                      .addClass("card-title")
-                      .text(`${coin.name} (${coin.symbol})`)
-                  ),
-                $("<div>")
-                  .attr("id", "slider")
-                  .append(
-                    $("<label>")
-                      .attr("id", "modalSwitch")
-                      .addClass("switch")
-                      .append(
-                        $("<input>")
-                          .addClass("unselect-slider")
-                          .attr({
-                            type: "checkbox",
-                            id: `inlineCheckbox_${i}`,
-                            "data-coin-id": coin.id,
-                          })
-                          .prop("checked", true),
-                        $("<span>").addClass("slider round")
-                      )
-                  )
+          const coinInfo = await $.getJSON(
+            "https://api.coingecko.com/api/v3/coins/" + coin.id
+          );
+          const imageSource = coinInfo.image.small;
+
+          const coinBoxModal = $("<div>")
+            .attr("id", "coinBoxModal")
+            .append(
+              $("<div>")
+                .attr("id", "coinName")
+                .append(
+                  $("<img>")
+                    .attr("src", imageSource)
+                    .attr("alt", `${coin.name} logo`),
+                  $("<p>")
+                    .attr("id", "modalCoin")
+                    .addClass("card-title")
+                    .text(`${coin.name} (${coin.symbol})`)
+                ),
+              $("<div>")
+                .attr("id", "slider")
+                .append(
+                  $("<label>")
+                    .attr("id", "modalSwitch")
+                    .addClass("switch")
+                    .append(
+                      $("<input>")
+                        .addClass("unselect-slider")
+                        .attr({
+                          type: "checkbox",
+                          id: `inlineCheckbox_${i}`,
+                          "data-coin-id": coin.id,
+                        })
+                        .prop("checked", true),
+                      $("<span>").addClass("slider round")
+                    )
+                )
+            );
+
+          modalBody.append(coinBoxModal);
+
+          const unselectSlider = modalBody.find(
+            `.unselect-slider[data-coin-id="${coin.id}"]`
+          );
+          unselectSlider.on("change", function () {
+            const isChecked = $(this).prop("checked");
+            const coinId = $(this).data("coin-id");
+
+            if (!isChecked) {
+              selectedCoins = selectedCoins.filter(
+                (coin) => coin.id !== coinId
               );
-            
-            modalBody.append(coinBoxModal);
-            
-            const unselectSlider = modalBody.find(`.unselect-slider[data-coin-id="${coin.id}"]`);
-            unselectSlider.on("change", function () {
-              const isChecked = $(this).prop("checked");
-              const coinId = $(this).data("coin-id");
-            
-              if (!isChecked) {
-                selectedCoins = selectedCoins.filter((coin) => coin.id !== coinId);
-                $(`#slider_${coinId}`).prop("checked", false);
-                updateSelectedCoinsModal();
-                $("#maxCoinsModal").modal("hide");
-            
-                // Display the toast message
-                Toastify({
-                  text: "✔ Watchlist has been updated",
-                  className: "success",
-                  style: {
-                    background: "linear-gradient(to right, #265b00, #48a803)",
-                  },
-                }).showToast();
-              }
-            });
+              $(`#slider_${coinId}`).prop("checked", false);
+              updateSelectedCoinsModal();
+              $("#maxCoinsModal").modal("hide");
+
+              // Display the toast message
+              showToast("✔ Watchlist has been updated", "update");
+
+            }
+          });
         } catch (error) {
           // Display an error toast message
-          const errorMessage =
-            "Choose a coin already , go see the live reports 😉";
-          Toastify({
-            text: errorMessage,
-            className: "error",
-            style: {
-              background: "linear-gradient(to right, #ff0000, #f56c6c)",
-            },
-          }).showToast();
+          showToast("Choose a coin already , go see the live reports 😉", "error");
         }
       }
 
@@ -488,13 +508,15 @@ $(() => {
   async function fetchCoinInfoAndUpdateView(coinId) {
     const localDataKey = "coin_" + coinId;
     const storedData = localStorage.getItem(localDataKey);
-  
+
     // Check if the data exists , if not not passed 2 minutes
     if (storedData) {
       const data = JSON.parse(storedData);
       const currentTime = new Date().getTime();
       if (currentTime - data.timestamp < 120000 /* 2 minutes */) {
-        console.log("The Data Already Existed in LocalStorage - No API Call Needed");
+        console.log(
+          "The Data Already Existed in LocalStorage - No API Call Needed"
+        );
         const { imgSrc, usdPrice, eurPrice, ilsPrice } = data;
         const moreInfo = `
           <img src="${imgSrc}"><br>
@@ -509,9 +531,11 @@ $(() => {
     // Show the loading animation
     $(".loading").css("display", "block");
 
-// Api call the coin information.
+    // Api call the coin information.
     try {
-      const coinData = await getJson("https://api.coingecko.com/api/v3/coins/" + coinId);
+      const coinData = await getJson(
+        "https://api.coingecko.com/api/v3/coins/" + coinId
+      );
       console.log("New API Request - This Is New Data");
       const imgSrc = coinData.image.small;
       const usdPrice = coinData.market_data.current_price.usd;
@@ -524,8 +548,8 @@ $(() => {
         ILS: ₪${ilsPrice} <br>
       `;
       $(`#collapse_${coinId}`).html(moreInfo);
-  
-        // Store the coin data to local storage:
+
+      // Store the coin data to local storage:
       const newData = {
         imgSrc,
         usdPrice,
@@ -536,19 +560,12 @@ $(() => {
       localStorage.setItem(localDataKey, JSON.stringify(newData));
     } catch (error) {
       // Display an error toast message
-      const errorMessage =
-        "Please wait a moment before making another request. Avoid spamming the data.";
-      Toastify({
-        text: errorMessage,
-        className: "error",
-        style: {
-          background: "linear-gradient(to right, #ff0000, #f56c6c)",
-        },
-      }).showToast();
+      showToast("Please wait a moment before making another request. Avoid spamming the data.", "error")
     } finally {
       // Hide the loading animation
       $(".loading").css("display", "none");
     }
   }
-  
 });
+
+
