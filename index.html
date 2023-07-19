@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="assets/images/sitelogo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/sitelogo.png" />
+
+    <!-- External CSS files -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-      crossorigin="anonymous"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/cryptonews.css" />
     <link rel="stylesheet" href="css/modal.css" />
@@ -18,27 +28,39 @@
     <link rel="stylesheet" href="css/snowcrypto.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- External JavaScript libraries -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"
+    ></script>
     <script defer src="js/main.js"></script>
     <script defer src="js/snowcrypto.js"></script>
     <script defer src="js/cryptonews.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
 
+    <!-- Page title -->
     <title>Second Project - Bitcoin Site</title>
   </head>
   <body id="top">
+    <!-- Background audio -->
     <audio id="myAudio">
       <source src="/assets/music/song.mp3" />
     </audio>
 
+    <!-- "Scroll Up" button -->
     <a id="scrollTop"><img src="assets/images/arrowUp.png" />Scroll Up</a>
+
+    <!-- Crypto News Banner -->
     <div id="websiteBanner" class="news-container">
       <div class="title">Crypto News</div>
       <ul id="coinsNewsContainer">
@@ -46,7 +68,10 @@
       </ul>
     </div>
     <br /><br />
+
     <div class="container"></div>
+
+    <!-- Animated logo -->
     <div class="waviy">
       <img id="logoImg" src="assets/images/sitelogo.png" />
       <span style="--i: 1">C</span>
@@ -62,6 +87,8 @@
       <span style="--i: 11">E</span>
       <img id="logoImg" src="assets/images/sitelogo.png" />
     </div>
+
+    <!-- Navigation bar -->
     <div class="navBarDesign">
       <div class="loading">
         <div><img id="cryptoLoading" src="assets/images/cryptologo.png" /></div>
@@ -85,6 +112,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
+              <!-- Navigation links -->
               <li class="nav-item">
                 <a
                   id="newsLink"
@@ -113,18 +141,21 @@
                 >
               </li>
               <li class="nav-item">
+                <!-- Placeholder for selected coins (will be populated dynamically) -->
                 <p id="aboutLink" class="nav-link">
                   Selected Coins<span id="coinsSelected"></span>
                 </p>
               </li>
               <li class="nav-item dropdown">
+                <!-- Search form -->
                 <form class="d-flex">
                   <input
                     id="searchInput"
                     class="form-control me-2"
                     type="search"
                     placeholder="Search Coin Name"
-                    aria-label="Search"/>
+                    aria-label="Search"
+                  />
                   <span>
                     <button type="button" id="cryptoRain">Rain Maker</button>
                   </span>
@@ -139,11 +170,16 @@
       </nav>
     </div>
 
-    <div id="maxCoinsModal" class="modal animate_animate animate__bounceIn" data-bs-backdrop="static">
+    <!-- Modal pop-up selected coins -->
+    <div
+      id="maxCoinsModal"
+      class="modal animate_animate animate__bounceIn"
+      data-bs-backdrop="static"
+    >
       <div class="modal-dialog">
-        <div class="modal-content ">
+        <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">You selected too many coin.</h5>
+            <h5 class="modal-title">You selected too many coins.</h5>
           </div>
           <div id="modalErrorMessage"></div>
           <br />
@@ -155,16 +191,21 @@
         </div>
       </div>
     </div>
+
+    <!-- Coins section -->
     <section id="homeSection">
       <h3>Coins</h3>
 
-      
       <div id="coinsContainer"></div>
     </section>
+
+    <!-- Reports section -->
     <section id="reportsSection">
       <h3>Reports</h3>
       <div id="chartMessage"></div>
     </section>
+
+    <!-- About section -->
     <section id="aboutSection">
       <h3>About</h3>
       <div id="aboutMe">
@@ -202,6 +243,8 @@
         <br />
       </div>
     </section>
+
+    <!-- News section -->
     <section id="newsSection">
       <h3>Crypto House</h3>
       <div id="cryptoNews" class="carousel slide" data-bs-ride="carousel">
