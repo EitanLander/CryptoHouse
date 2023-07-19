@@ -3,8 +3,7 @@
 "use strict";
 
 $(() => {
-
-    // Function to display Toastify messages with different configurations
+  // Function to display Toastify messages with different configurations
   function showToast(message, messageType) {
     let className, background;
 
@@ -12,10 +11,11 @@ $(() => {
       className = "success";
       background = "linear-gradient(to right, #0084FF, #1DB3FF)";
     } else if (messageType === "error") {
+      error.play();
       className = "error";
       background = "linear-gradient(to right, #ff0000, #f56c6c)";
     } else if (messageType === "update") {
-        className = "update";
+      className = "update";
       background = "linear-gradient(to right, #51c400, #2a890d)";
     }
 
@@ -27,7 +27,6 @@ $(() => {
       },
     }).showToast();
   }
-
 
   // Scroll to top when the "Scroll Up" link is clicked
   $("#scrollTop").click(() => {
@@ -62,12 +61,22 @@ $(() => {
   $("#homeLink").click(async () => await handleHome());
 
   async function handleHome() {
-    const coins = await getJson("https://api.coingecko.com/api/v3/coins/list"); //
-    displayCoins(coins);
+    try {
+      const coins = await getJson(
+        "https://api.coingecko.com/api/v3/coins/list"
+      );
+      displayCoins(coins);
 
-    // Clear the selectedCoinIds from local storage
-    localStorage.removeItem("selectedCoinIds");
-    $("#coinsSelected").html("");
+      // Clear the selectedCoinIds from local storage
+      localStorage.removeItem("selectedCoinIds");
+      $("#coinsSelected").html("");
+    } catch (error) {
+      // Display an error toast message
+      showToast(
+        "Please wait a moment before making another request. Avoid spamming the data.",
+        "error"
+      );
+    }
   }
 
   $("#searchInput").on("input", function () {
@@ -89,8 +98,6 @@ $(() => {
       }
     }
   });
-
-  
 
   // Displaying Crypto Coins and adding them to the Page
   function displayCoins(coins) {
@@ -131,13 +138,13 @@ $(() => {
     const maxCoins = 5;
 
     // If User Decided To Leave 5 Coin , Remove the Sixth from the Array.
-  $("#exitModalButton").on("click", function () {
-    if (selectedCoins.length > maxCoins) {
-      selectedCoins.pop();
-      updateSelectedCoinsModal();
-      $("#maxCoinsModal").modal("hide");
-    }
-  });
+    $("#exitModalButton").on("click", function () {
+      if (selectedCoins.length > maxCoins) {
+        selectedCoins.pop();
+        updateSelectedCoinsModal();
+        $("#maxCoinsModal").modal("hide");
+      }
+    });
 
     // Pop up a modal when user reaches max coins (5 coins).
     if (selectedCoins.length === maxCoins) {
@@ -162,7 +169,7 @@ $(() => {
               selectedCoins.push(coin);
 
               // Display a success toast message
-             showToast("✔ Coin added to your watchlist", "success");
+              showToast("✔ Coin added to your watchlist", "success");
             }
           } else {
             const modalHeader = $("#sixthCoin");
@@ -255,12 +262,14 @@ $(() => {
 
               // Display the toast message
               showToast("✔ Watchlist has been updated", "update");
-
             }
           });
         } catch (error) {
           // Display an error toast message
-          showToast("Choose a coin already , go see the live reports 😉", "error");
+          showToast(
+            "Choose a coin already , go see the live reports 😉",
+            "error"
+          );
         }
       }
 
@@ -560,12 +569,13 @@ $(() => {
       localStorage.setItem(localDataKey, JSON.stringify(newData));
     } catch (error) {
       // Display an error toast message
-      showToast("Please wait a moment before making another request. Avoid spamming the data.", "error")
+      showToast(
+        "Please wait a moment before making another request. Avoid spamming the data.",
+        "error"
+      );
     } finally {
       // Hide the loading animation
       $(".loading").css("display", "none");
     }
   }
 });
-
-

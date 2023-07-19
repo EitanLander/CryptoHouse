@@ -55,3 +55,10 @@ $("#playMusic").click(function () {
     $(this).text("Play Audio");
   }
 });
+
+
+const error = $("#errorSound")[0];
+const playErrorSound = () => {
+    error.play();
+}
+
