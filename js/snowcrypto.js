@@ -9,7 +9,7 @@ $(() => {
     const container = $(".container");
     const numCoins = getRandomNumber(5, 10); // Random number of coins between 5 and 10
     const coinImages = [
-      "assets/images/cryptologo.png",
+      "assets/images/sitelogo.png",
       "assets/images/ethereum.png",
       "assets/images/bitcoin.png",
       "assets/images/usdt.png",
