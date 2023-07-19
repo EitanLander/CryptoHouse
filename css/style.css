@@ -12,7 +12,7 @@ html {
 body {
   font-weight: 500;
   font-family: Tahoma;
-  background-image: url(/assets/images/5166950.jpg);
+  background-image: url(/assets/images/background.jpg);
   min-height: 500px;
   background-attachment: fixed;
   background-position: center;
@@ -115,7 +115,7 @@ h3 {
 /* Scroll top button */
 #scrollTop {
   position: fixed;
-  top: 800px;
+  top: 700px;
   left: 15px;
 }
 
