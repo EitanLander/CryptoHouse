@@ -6,12 +6,14 @@
   border: solid 2px #0195ff30;
   text-transform: uppercase;
   font-family: "Droid Sans Mono,monospace";
-  background-color: rgba(0, 0, 0, 0.095);
-  backdrop-filter: blur(15px);
+  background-color: rgba(0, 0, 0, 0.6);
   height: 450px;
   width: 600px;
 }
 
+#maxCoinsModal {
+  backdrop-filter: blur(3px);
+}
 #exitModalButton {
   font-size: 25px;
   color: white;
@@ -19,7 +21,6 @@
   border-radius: 15px;
   width: 280px;
   background-color: rgba(255, 255, 255, 0.033);
-  backdrop-filter: blur(10px);
 }
 
 #exitModalButton:hover {
