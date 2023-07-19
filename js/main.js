@@ -385,7 +385,7 @@ $(() => {
         let chart = new CanvasJS.Chart("chartContainer", {
           exportEnabled: true,
           animationEnabled: false,
-          theme: "light2",
+          theme: "dark1",
 
           title: {
             text: "Live $US Dollar Rates for Handpicked Cryptocurrencies",
